@@ -112,6 +112,7 @@ function Nav({ page, navigate }) {
           <a onClick={() => navigate('ai-guide')} className={page === 'ai-guide' ? 'active' : ''}>AI Guide</a>
           <a onClick={() => navigate('marketplace')} className={page === 'marketplace' ? 'active' : ''}>Marketplace</a>
           <a onClick={() => navigate('memorial')} className={page === 'memorial' ? 'active' : ''}>Memorial</a>
+          <a onClick={() => navigate('documents')} className={page === 'documents' ? 'active' : ''}>Documents</a>
           <a onClick={() => navigate('concierge')} className={page === 'concierge' ? 'active' : ''}>Concierge</a>
         </div>
       </div>
