@@ -3,7 +3,7 @@ import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { Home, ChevronLeft } from 'lucide-react'
-import { theme, cn } from '../theme'
+import { theme, cn } from '@/theme'
 
 interface TriageWizardProps {
   onComplete: (answers: Record<string, any>) => void

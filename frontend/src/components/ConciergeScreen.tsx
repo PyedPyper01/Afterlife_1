@@ -2,7 +2,7 @@ import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Home, Phone, Mail } from 'lucide-react'
 import { FloatingCard, ParallaxBackground } from './FloatingCard'
-import { theme, cn } from '../theme'
+import { theme, cn } from '@/theme'
 
 interface ConciergeScreenProps {
   setCurrentStep: (step: any) => void

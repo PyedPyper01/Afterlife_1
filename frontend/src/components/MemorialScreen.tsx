@@ -2,7 +2,7 @@ import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Home, Heart } from 'lucide-react'
 import { FloatingCard, ParallaxBackground } from './FloatingCard'
-import { theme, cn } from '../theme'
+import { theme, cn } from '@/theme'
 
 interface MemorialScreenProps {
   setCurrentStep: (step: any) => void

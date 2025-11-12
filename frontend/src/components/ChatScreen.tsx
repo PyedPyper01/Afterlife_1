@@ -3,7 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { Home, MessageCircle } from 'lucide-react'
 import { FloatingCard, ParallaxBackground } from './FloatingCard'
-import { theme, cn } from '../theme'
+import { theme, cn } from '@/theme'
 
 interface ChatScreenProps {
   setCurrentStep: (step: any) => void
