@@ -1,5 +1,5 @@
 import { ReactNode, useEffect, useRef, useState } from 'react'
-import { cn } from '../theme'
+import { cn } from '../theme.ts'
 
 interface FloatingCardProps {
   children: ReactNode
