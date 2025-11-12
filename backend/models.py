@@ -83,6 +83,18 @@ class StepProgressUpdate(BaseModel):
     step_data: Optional[Dict[str, Any]] = None
     completed_at: Optional[datetime] = None
 
+class StepProgressCreate(BaseModel):
+    session_id: str
+    step_id: str
+    step_name: str
+    completed_tasks: Dict[str, bool] = {}
+    step_data: Dict[str, Any] = {}
+
+class StepProgressUpdate(BaseModel):
+    completed_tasks: Optional[Dict[str, bool]] = None
+    step_data: Optional[Dict[str, Any]] = None
+    completed_at: Optional[datetime] = None
+
 class SupportResource(BaseModel):
     id: str = Field(default_factory=lambda: str(uuid.uuid4()))
     name: str
