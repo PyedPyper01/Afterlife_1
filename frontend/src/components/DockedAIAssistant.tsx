@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { MessageCircle, X, Minimize2, Maximize2 } from 'lucide-react'
-import { theme, cn } from '@/theme'
+import { theme, cn } from '../theme'
 
 interface DockedAIAssistantProps {
   context?: {

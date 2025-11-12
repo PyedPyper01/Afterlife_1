@@ -1,8 +1,8 @@
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Home, ShoppingCart } from 'lucide-react'
-import { FloatingCard, ParallaxBackground } from '@/components/FloatingCard'
-import { theme, cn } from '@/theme'
+import { FloatingCard, ParallaxBackground } from './FloatingCard'
+import { theme, cn } from '../theme'
 
 interface MarketplaceScreenProps {
   setCurrentStep: (step: any) => void
