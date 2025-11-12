@@ -5,9 +5,14 @@ import os
 from datetime import datetime
 
 router = APIRouter()
-mongo_url = os.environ['MONGO_URL']
-client = AsyncIOMotorClient(mongo_url)
-db = client[os.environ['DB_NAME']]
+
+# Get database connection from environment
+def get_db():
+    mongo_url = os.environ.get('MONGO_URL', 'mongodb://localhost:27017')
+    client = AsyncIOMotorClient(mongo_url)
+    return client[os.environ.get('DB_NAME', 'premium_tribute_db')]
+
+db = get_db()
 
 # User Sessions
 @router.post("/sessions", response_model=UserSession)
