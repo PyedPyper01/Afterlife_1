@@ -98,31 +98,66 @@ async def chat(request: ChatRequest):
         print(f"Chat error: {e}")
         raise HTTPException(status_code=500, detail=str(e))
 
-# Marketplace search
+# Marketplace search with AI-generated suppliers
 @api_router.get("/suppliers/search")
 async def search_suppliers(postcode: str):
     try:
-        # Normalize postcode (remove spaces, uppercase)
+        # Normalize postcode
         search_postcode = postcode.replace(" ", "").upper()
         
-        # Get all suppliers
-        all_suppliers = await db.suppliers.find({"available": True}, {"_id": 0}).to_list(100)
+        # Check database first for real suppliers
+        db_suppliers = await db.suppliers.find({"available": True}, {"_id": 0}).to_list(100)
         
-        if not all_suppliers:
-            return {"suppliers": [], "message": "No suppliers in database"}
-        
-        # Match by postcode prefix (first 2-4 characters)
         search_prefix = search_postcode[:4] if len(search_postcode) >= 4 else search_postcode[:2]
         
         matching_suppliers = []
-        for supplier in all_suppliers:
+        for supplier in db_suppliers:
             supplier_postcode = supplier['postcode'].replace(" ", "").upper()
-            
-            # Check if supplier postcode starts with search prefix
             if supplier_postcode.startswith(search_prefix):
-                # Calculate approximate distance (simple estimation)
                 supplier['distance_miles'] = round(abs(hash(supplier_postcode) % 10) + 0.5, 1)
                 matching_suppliers.append(supplier)
+        
+        # If no suppliers in database, generate with AI
+        if len(matching_suppliers) == 0 and EMERGENT_LLM_KEY:
+            try:
+                # Use OpenAI to generate realistic suppliers for this postcode
+                chat = LlmChat(
+                    api_key=EMERGENT_LLM_KEY,
+                    session_id=f"supplier-gen-{search_postcode}",
+                    system_message="""You are a UK business directory system. Generate realistic funeral service suppliers for the given postcode.
+
+Output ONLY valid JSON array, no markdown, no explanation. Format:
+[{"name":"Business Name","type":"funeral_director","address":"Street, City","postcode":"POSTCODE","phone":"Phone","verified":true,"rating":4.5,"distance_miles":2.1}]
+
+Types: funeral_director, florist, mason
+Include 3-5 suppliers mix of types.
+Use realistic UK business names, addresses near the postcode, proper UK phone format."""
+                ).with_model("openai", "gpt-4o-mini")
+                
+                prompt = f"Generate 4 realistic funeral/memorial service suppliers (funeral directors, florists, masons) for postcode area: {postcode}"
+                response = await chat.send_message(UserMessage(text=prompt))
+                
+                # Parse JSON response
+                import json
+                # Clean response - remove markdown if present
+                clean_response = response.strip()
+                if clean_response.startswith("```"):
+                    clean_response = clean_response.split("```")[1]
+                    if clean_response.startswith("json"):
+                        clean_response = clean_response[4:]
+                clean_response = clean_response.strip()
+                
+                ai_suppliers = json.loads(clean_response)
+                matching_suppliers = ai_suppliers
+                
+                # Mark as AI-generated
+                for supplier in matching_suppliers:
+                    supplier['ai_generated'] = True
+                    
+            except Exception as ai_error:
+                print(f"AI generation error: {ai_error}")
+                # Return empty if AI fails
+                pass
         
         # Sort by distance
         matching_suppliers.sort(key=lambda x: x.get('distance_miles', 999))
