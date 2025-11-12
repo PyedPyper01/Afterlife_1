@@ -1,20 +1,12 @@
-from fastapi import FastAPI, APIRouter, HTTPException, Request, Header, UploadFile, File
-from fastapi.responses import StreamingResponse, Response
+from fastapi import FastAPI, APIRouter
 from dotenv import load_dotenv
 from starlette.middleware.cors import CORSMiddleware
 from motor.motor_asyncio import AsyncIOMotorClient
 import os
 import logging
 from pathlib import Path
-from pydantic import BaseModel, Field, ConfigDict
-from typing import List, Dict, Any, Optional
-import uuid
-from datetime import datetime, timezone
-import json
-import base64
-
-# Import emergentintegrations
-from emergentintegrations.llm.chat import LlmChat, UserMessage
+from routes import router as api_routes
+from database import create_indexes, init_guidance_data, init_support_resources, close_db_connection
 
 ROOT_DIR = Path(__file__).parent
 load_dotenv(ROOT_DIR / '.env')
