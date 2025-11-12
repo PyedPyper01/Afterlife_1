@@ -50,7 +50,8 @@ function App() {
     concierge: 'https://customer-assets.emergentagent.com/job_griefguide-2/artifacts/e6ucnrzj_5724712-uhd_3840_2160_30fps.mp4',
     'ai-guide': 'https://customer-assets.emergentagent.com/job_griefguide-2/artifacts/5lpo0y1q_3561988-hd_1920_1080_25fps.mp4',
     marketplace: 'https://customer-assets.emergentagent.com/job_griefguide-2/artifacts/rkyvo5e5_9335381-hd_1920_1080_25fps.mp4',
-    memorial: 'https://customer-assets.emergentagent.com/job_griefguide-2/artifacts/x3pdgfjw_5120402-hd_1920_1080_25fps.mp4'
+    memorial: 'https://customer-assets.emergentagent.com/job_griefguide-2/artifacts/x3pdgfjw_5120402-hd_1920_1080_25fps.mp4',
+    documents: 'https://customer-assets.emergentagent.com/job_griefguide-2/artifacts/e6ucnrzj_5724712-uhd_3840_2160_30fps.mp4'
   }
 
   const currentVideo = videoBackgrounds[page] || videoBackgrounds.home
