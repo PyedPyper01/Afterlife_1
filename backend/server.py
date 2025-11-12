@@ -10,12 +10,13 @@ load_dotenv()
 
 app = FastAPI()
 
+# Disable CORS. Do not remove this for full-stack development.
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=["*"],  # Allows all origins
     allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
+    allow_methods=["*"],  # Allows all methods
+    allow_headers=["*"],  # Allows all headers
 )
 
 openai_client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
@@ -33,13 +34,11 @@ class ChatResponse(BaseModel):
     response: str
     tool_used: Optional[str] = None
 
+
+
 @app.get("/healthz")
 async def healthz():
     return {"status": "ok"}
-
-@app.get("/api/")
-async def root():
-    return {"status": "healthy", "service": "AfterLife API"}
 
 @app.post("/api/chat", response_model=ChatResponse)
 async def chat(request: ChatRequest):
@@ -47,6 +46,7 @@ async def chat(request: ChatRequest):
     try:
         jurisdiction = request.context.get("answers", {}).get("jurisdiction", "england-wales") if request.context else "england-wales"
         religion = request.context.get("answers", {}).get("religion", "") if request.context else ""
+        
         postcode = request.context.get("answers", {}).get("postcode", "") if request.context else ""
         
         system_prompt = f"""You are a compassionate AI assistant for the AfterLife bereavement support platform. Your role is to provide accurate, empathetic guidance on the UK bereavement process.
@@ -84,7 +84,7 @@ Provide helpful, accurate guidance based on this context."""
         messages = [{"role": "system", "content": system_prompt}]
         
         if request.history:
-            for msg in request.history[-10:]:
+            for msg in request.history[-10:]:  # Last 10 messages for context
                 messages.append({"role": msg.role, "content": msg.content})
         
         messages.append({"role": "user", "content": request.message})
