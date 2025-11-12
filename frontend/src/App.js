@@ -282,17 +282,25 @@ function App() {
           {suppliers.length > 0 && (
             <div className="grid md:grid-cols-2 gap-6">
               {suppliers.map((supplier, idx) => (
-                <div key={idx} className="bg-white p-6 rounded-xl shadow-lg border-2 border-gray-200">
+                <div key={idx} className="bg-white p-6 rounded-xl shadow-lg border-2 border-gray-200 hover:border-purple-300 transition">
                   <div className="flex items-start justify-between mb-3">
                     <h3 className="text-xl font-bold">{supplier.name}</h3>
-                    {supplier.verified && (
-                      <span className="bg-green-100 text-green-800 text-xs px-2 py-1 rounded">✓ Verified</span>
-                    )}
+                    <div className="flex gap-2">
+                      {supplier.verified && (
+                        <span className="bg-green-100 text-green-800 text-xs px-2 py-1 rounded">✓ Verified</span>
+                      )}
+                      {supplier.ai_generated && (
+                        <span className="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded">📍 Local</span>
+                      )}
+                    </div>
                   </div>
-                  <p className="text-gray-600 mb-2">{supplier.type.replace('_', ' ').toUpperCase()}</p>
+                  <p className="text-gray-600 mb-2 font-semibold">{supplier.type.replace('_', ' ').toUpperCase()}</p>
                   <p className="text-gray-500 mb-3">{supplier.address}</p>
                   {supplier.phone && (
-                    <p className="text-purple-600 font-semibold">📞 {supplier.phone}</p>
+                    <p className="text-purple-600 font-semibold mb-2">📞 {supplier.phone}</p>
+                  )}
+                  {supplier.rating && (
+                    <p className="text-yellow-600 text-sm">⭐ {supplier.rating}/5.0</p>
                   )}
                   {supplier.distance_miles !== undefined && (
                     <p className="text-sm text-gray-500 mt-2">📍 {supplier.distance_miles} miles away</p>
