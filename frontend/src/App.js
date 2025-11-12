@@ -87,16 +87,22 @@ function App() {
             </p>
           </div>
 
-          <div className="flex gap-4 justify-center">
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <button 
               onClick={() => setCurrentPage('journey')}
-              className="bg-purple-600 text-white px-8 py-4 rounded-lg text-lg font-semibold hover:bg-purple-700 transition"
+              className="bg-purple-600 text-white px-8 py-4 rounded-lg text-lg font-semibold hover:bg-purple-700 transition shadow-lg"
             >
               Start Guided Journey
             </button>
             <button 
+              onClick={() => setCurrentPage('chat')}
+              className="bg-blue-600 text-white px-8 py-4 rounded-lg text-lg font-semibold hover:bg-blue-700 transition shadow-lg"
+            >
+              Chat with AI Assistant
+            </button>
+            <button 
               onClick={() => setCurrentPage('documents')}
-              className="bg-white border-2 border-gray-300 px-8 py-4 rounded-lg text-lg font-semibold hover:bg-gray-50 transition"
+              className="bg-white border-2 border-gray-300 px-8 py-4 rounded-lg text-lg font-semibold hover:bg-gray-50 transition shadow-md"
             >
               Documents
             </button>
