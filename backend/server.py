@@ -51,9 +51,10 @@ async def chat(request: ChatRequest):
         if not EMERGENT_LLM_KEY:
             raise HTTPException(status_code=500, detail="AI not configured")
         
-        # Initialize chat
+        # Initialize chat with session_id
         chat = LlmChat(
             api_key=EMERGENT_LLM_KEY,
+            session_id="chat-session",
             system_message=SYSTEM_PROMPT
         ).with_model("openai", "gpt-4o")
         
