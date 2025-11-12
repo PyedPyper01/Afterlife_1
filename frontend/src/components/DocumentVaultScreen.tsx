@@ -1,5 +1,5 @@
-import { Button } from './components/ui/button'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from './components/ui/card'
+import { Button } from '../components/ui/button'
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../components/ui/card'
 import { Home, FileText, Upload } from 'lucide-react'
 import { FloatingCard, ParallaxBackground } from './FloatingCard'
 import { theme, cn } from '../theme'
