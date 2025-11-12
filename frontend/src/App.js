@@ -53,11 +53,22 @@ function App() {
     setSearching(true);
     
     try {
-      const response = await fetch(`${API_URL}/api/suppliers/search?postcode=${postcode}`);
+      const url = `${API_URL}/api/suppliers/search?postcode=${encodeURIComponent(postcode)}`;
+      console.log('Searching:', url);
+      
+      const response = await fetch(url);
       const data = await response.json();
-      setSuppliers(data.suppliers || []);
+      
+      console.log('Search response:', data);
+      
+      if (data.suppliers && data.suppliers.length > 0) {
+        setSuppliers(data.suppliers);
+      } else {
+        setSuppliers([]);
+      }
     } catch (error) {
       console.error('Search error:', error);
+      setSuppliers([]);
     } finally {
       setSearching(false);
     }
