@@ -1,12 +1,20 @@
 import React, { useState } from 'react';
 import './App.css';
 
-// Simple page router
 function App() {
   const [currentPage, setCurrentPage] = useState('home');
   const [chatMessages, setChatMessages] = useState([]);
   const [userInput, setUserInput] = useState('');
   const [loading, setLoading] = useState(false);
+  
+  // Marketplace state
+  const [postcode, setPostcode] = useState('');
+  const [suppliers, setSuppliers] = useState([]);
+  const [searching, setSearching] = useState(false);
+  
+  // Journey state
+  const [step, setStep] = useState(1);
+  const totalSteps = 5;
 
   const API_URL = process.env.REACT_APP_BACKEND_URL || 'http://localhost:8001';
 
@@ -39,6 +47,22 @@ function App() {
     }
   };
 
+  // Marketplace search handler
+  const searchSuppliers = async () => {
+    if (!postcode.trim()) return;
+    setSearching(true);
+    
+    try {
+      const response = await fetch(`${API_URL}/api/suppliers/search?postcode=${postcode}`);
+      const data = await response.json();
+      setSuppliers(data.suppliers || []);
+    } catch (error) {
+      console.error('Search error:', error);
+    } finally {
+      setSearching(false);
+    }
+  };
+
   // Home Page
   if (currentPage === 'home') {
     return (
@@ -59,7 +83,7 @@ function App() {
             >
               <div className="text-4xl mb-4">🤖</div>
               <h3 className="text-2xl font-bold mb-3">AI Guidance</h3>
-              <p className="text-gray-600">24/7 intelligent assistant</p>
+              <p className="text-gray-600">Step-by-step questions</p>
             </div>
 
             <div 
@@ -119,7 +143,7 @@ function App() {
         <div className="max-w-4xl mx-auto">
           <button 
             onClick={() => setCurrentPage('home')}
-            className="mb-6 text-purple-600 hover:text-purple-700"
+            className="mb-6 text-purple-600 hover:text-purple-700 font-semibold"
           >
             ← Back to Home
           </button>
@@ -133,29 +157,29 @@ function App() {
             <div className="flex-1 overflow-y-auto mb-4 space-y-4">
               {chatMessages.length === 0 && (
                 <div className="text-center text-gray-500 mt-8">
-                  <p>Start a conversation by typing a message below</p>
-                  <div className="mt-4 grid grid-cols-2 gap-2">
+                  <p className="mb-6">Start a conversation by typing a message below</p>
+                  <div className="grid grid-cols-2 gap-3">
                     <button 
                       onClick={() => setUserInput("What do I need to do first?")}
-                      className="bg-purple-50 p-3 rounded-lg hover:bg-purple-100"
+                      className="bg-purple-50 p-3 rounded-lg hover:bg-purple-100 text-sm"
                     >
                       What do I need to do first?
                     </button>
                     <button 
                       onClick={() => setUserInput("How do I register a death?")}
-                      className="bg-purple-50 p-3 rounded-lg hover:bg-purple-100"
+                      className="bg-purple-50 p-3 rounded-lg hover:bg-purple-100 text-sm"
                     >
                       How do I register a death?
                     </button>
                     <button 
                       onClick={() => setUserInput("Find me a funeral director")}
-                      className="bg-purple-50 p-3 rounded-lg hover:bg-purple-100"
+                      className="bg-purple-50 p-3 rounded-lg hover:bg-purple-100 text-sm"
                     >
                       Find me a funeral director
                     </button>
                     <button 
                       onClick={() => setUserInput("What is probate?")}
-                      className="bg-purple-50 p-3 rounded-lg hover:bg-purple-100"
+                      className="bg-purple-50 p-3 rounded-lg hover:bg-purple-100 text-sm"
                     >
                       What is probate?
                     </button>
@@ -212,31 +236,12 @@ function App() {
 
   // Marketplace Page
   if (currentPage === 'marketplace') {
-    const [postcode, setPostcode] = useState('');
-    const [suppliers, setSuppliers] = useState([]);
-    const [searching, setSearching] = useState(false);
-
-    const searchSuppliers = async () => {
-      if (!postcode.trim()) return;
-      setSearching(true);
-      
-      try {
-        const response = await fetch(`${API_URL}/api/suppliers/search?postcode=${postcode}`);
-        const data = await response.json();
-        setSuppliers(data.suppliers || []);
-      } catch (error) {
-        console.error('Search error:', error);
-      } finally {
-        setSearching(false);
-      }
-    };
-
     return (
       <div className="min-h-screen bg-gradient-to-br from-purple-50 to-blue-50 p-8">
         <div className="max-w-6xl mx-auto">
           <button 
             onClick={() => setCurrentPage('home')}
-            className="mb-6 text-purple-600 hover:text-purple-700"
+            className="mb-6 text-purple-600 hover:text-purple-700 font-semibold"
           >
             ← Back to Home
           </button>
@@ -288,7 +293,7 @@ function App() {
 
           {suppliers.length === 0 && postcode && !searching && (
             <div className="bg-white p-8 rounded-xl shadow-lg text-center">
-              <p className="text-gray-600">No suppliers found in your area. Try a different postcode.</p>
+              <p className="text-gray-600">No suppliers found. Try searching for a UK postcode.</p>
             </div>
           )}
         </div>
@@ -303,7 +308,7 @@ function App() {
         <div className="max-w-4xl mx-auto">
           <button 
             onClick={() => setCurrentPage('home')}
-            className="mb-6 text-purple-600 hover:text-purple-700"
+            className="mb-6 text-purple-600 hover:text-purple-700 font-semibold"
           >
             ← Back to Home
           </button>
@@ -359,7 +364,7 @@ function App() {
         <div className="max-w-4xl mx-auto">
           <button 
             onClick={() => setCurrentPage('home')}
-            className="mb-6 text-purple-600 hover:text-purple-700"
+            className="mb-6 text-purple-600 hover:text-purple-700 font-semibold"
           >
             ← Back to Home
           </button>
@@ -405,15 +410,12 @@ function App() {
 
   // Guided Journey Page
   if (currentPage === 'journey') {
-    const [step, setStep] = useState(1);
-    const totalSteps = 5;
-
     return (
       <div className="min-h-screen bg-gradient-to-br from-purple-50 to-blue-50 p-8">
         <div className="max-w-4xl mx-auto">
           <button 
             onClick={() => setCurrentPage('home')}
-            className="mb-6 text-purple-600 hover:text-purple-700"
+            className="mb-6 text-purple-600 hover:text-purple-700 font-semibold"
           >
             ← Back to Home
           </button>
@@ -445,7 +447,11 @@ function App() {
                 <h3 className="text-xl font-semibold">Where did the death occur?</h3>
                 <div className="space-y-2">
                   {['At home', 'Hospital', 'Care home', 'Hospice', 'Public place', 'Other'].map(option => (
-                    <button key={option} className="w-full p-4 text-left border-2 rounded-lg hover:border-purple-500">
+                    <button 
+                      key={option} 
+                      onClick={() => setStep(2)}
+                      className="w-full p-4 text-left border-2 rounded-lg hover:border-purple-500 hover:bg-purple-50"
+                    >
                       {option}
                     </button>
                   ))}
@@ -458,7 +464,11 @@ function App() {
                 <h3 className="text-xl font-semibold">Your relationship to the deceased?</h3>
                 <div className="space-y-2">
                   {['Spouse/Partner', 'Child', 'Parent', 'Sibling', 'Friend', 'Other'].map(option => (
-                    <button key={option} className="w-full p-4 text-left border-2 rounded-lg hover:border-purple-500">
+                    <button 
+                      key={option} 
+                      onClick={() => setStep(3)}
+                      className="w-full p-4 text-left border-2 rounded-lg hover:border-purple-500 hover:bg-purple-50"
+                    >
                       {option}
                     </button>
                   ))}
@@ -471,7 +481,11 @@ function App() {
                 <h3 className="text-xl font-semibold">Religious/cultural preferences?</h3>
                 <div className="space-y-2">
                   {['Christian', 'Muslim', 'Jewish', 'Hindu', 'Buddhist', 'Sikh', 'Secular/None', 'Other'].map(option => (
-                    <button key={option} className="w-full p-4 text-left border-2 rounded-lg hover:border-purple-500">
+                    <button 
+                      key={option} 
+                      onClick={() => setStep(4)}
+                      className="w-full p-4 text-left border-2 rounded-lg hover:border-purple-500 hover:bg-purple-50"
+                    >
                       {option}
                     </button>
                   ))}
@@ -484,7 +498,11 @@ function App() {
                 <h3 className="text-xl font-semibold">Budget considerations?</h3>
                 <div className="space-y-2">
                   {['Low (under £2,000)', 'Medium (£2,000-£4,000)', 'High (£4,000-£7,000)', 'Premium (over £7,000)', 'Unsure'].map(option => (
-                    <button key={option} className="w-full p-4 text-left border-2 rounded-lg hover:border-purple-500">
+                    <button 
+                      key={option} 
+                      onClick={() => setStep(5)}
+                      className="w-full p-4 text-left border-2 rounded-lg hover:border-purple-500 hover:bg-purple-50"
+                    >
                       {option}
                     </button>
                   ))}
@@ -495,12 +513,14 @@ function App() {
             {step === 5 && (
               <div className="space-y-6">
                 <h3 className="text-xl font-semibold">Your Personalized Guidance</h3>
-                <div className="bg-purple-50 p-6 rounded-lg">
-                  <h4 className="font-bold mb-2">Immediate Actions</h4>
+                <div className="bg-purple-50 p-6 rounded-lg border-2 border-purple-200">
+                  <h4 className="font-bold mb-3 text-lg">Immediate Actions</h4>
                   <ul className="space-y-2 text-gray-700">
-                    <li>• Register the death within 5 days</li>
+                    <li>• Register the death within 5 days (England/Wales)</li>
                     <li>• Contact a funeral director</li>
                     <li>• Notify close family and friends</li>
+                    <li>• Secure the deceased's property</li>
+                    <li>• Locate the Will (if one exists)</li>
                   </ul>
                 </div>
                 <button 
@@ -509,6 +529,12 @@ function App() {
                 >
                   View Marketplace for Services
                 </button>
+                <button 
+                  onClick={() => setCurrentPage('chat')}
+                  className="w-full bg-blue-600 text-white py-4 rounded-lg font-semibold hover:bg-blue-700"
+                >
+                  Chat with AI Assistant
+                </button>
               </div>
             )}
 
@@ -516,17 +542,18 @@ function App() {
               <button 
                 onClick={() => setStep(Math.max(1, step - 1))}
                 disabled={step === 1}
-                className="px-6 py-3 border-2 rounded-lg disabled:opacity-50"
+                className="px-6 py-3 border-2 rounded-lg disabled:opacity-50 hover:bg-gray-50"
               >
                 ← Back
               </button>
-              <button 
-                onClick={() => setStep(Math.min(totalSteps, step + 1))}
-                disabled={step === totalSteps}
-                className="px-6 py-3 bg-purple-600 text-white rounded-lg disabled:opacity-50"
-              >
-                Next →
-              </button>
+              {step < totalSteps && (
+                <button 
+                  onClick={() => setStep(Math.min(totalSteps, step + 1))}
+                  className="px-6 py-3 bg-purple-600 text-white rounded-lg hover:bg-purple-700"
+                >
+                  Skip →
+                </button>
+              )}
             </div>
           </div>
         </div>
