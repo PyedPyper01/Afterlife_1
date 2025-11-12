@@ -79,6 +79,7 @@ function App() {
         {page === 'ai-guide' && <AIGuide sessionId={sessionId} navigate={navigate} />}
         {page === 'marketplace' && <Marketplace />}
         {page === 'memorial' && <Memorial />}
+        {page === 'documents' && <Documents sessionId={sessionId} />}
         {page === 'concierge' && <Concierge />}
         {page === 'about' && <About />}
         {page === 'payment-success' && <PaymentSuccess />}
