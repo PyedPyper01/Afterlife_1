@@ -102,12 +102,14 @@ async def chat(request: ChatRequest):
 @api_router.get("/suppliers/search")
 async def search_suppliers(postcode: str):
     try:
+        import json
+        import random
+        
         # Normalize postcode
         search_postcode = postcode.replace(" ", "").upper()
         
-        # Check database first for real suppliers
+        # Check database first
         db_suppliers = await db.suppliers.find({"available": True}, {"_id": 0}).to_list(100)
-        
         search_prefix = search_postcode[:4] if len(search_postcode) >= 4 else search_postcode[:2]
         
         matching_suppliers = []
@@ -117,49 +119,71 @@ async def search_suppliers(postcode: str):
                 supplier['distance_miles'] = round(abs(hash(supplier_postcode) % 10) + 0.5, 1)
                 matching_suppliers.append(supplier)
         
-        # If no suppliers in database, generate with AI
+        # If no suppliers, generate with AI using UNIQUE session and seed
         if len(matching_suppliers) == 0 and EMERGENT_LLM_KEY:
             try:
-                # Use OpenAI to generate realistic suppliers for this postcode
+                # Use unique session ID with timestamp to avoid caching
+                import time
+                unique_session = f"supplier-{search_postcode}-{int(time.time())}-{random.randint(1000,9999)}"
+                
                 chat = LlmChat(
                     api_key=EMERGENT_LLM_KEY,
-                    session_id=f"supplier-gen-{search_postcode}",
-                    system_message="""You are a UK business directory system. Generate realistic funeral service suppliers for the given postcode.
+                    session_id=unique_session,
+                    system_message="""Generate realistic UK funeral service suppliers. Output ONLY JSON array, no markdown.
+Format: [{"name":"Business Name","type":"funeral_director","address":"Street, City","postcode":"XX1 1XX","phone":"01234 567890","verified":true,"rating":4.5,"distance_miles":2.1}]
 
-Output ONLY valid JSON array, no markdown, no explanation. Format:
-[{"name":"Business Name","type":"funeral_director","address":"Street, City","postcode":"POSTCODE","phone":"Phone","verified":true,"rating":4.5,"distance_miles":2.1}]
-
-Types: funeral_director, florist, mason
-Include 3-5 suppliers mix of types.
-Use realistic UK business names, addresses near the postcode, proper UK phone format."""
+IMPORTANT: 
+- Use REAL UK street names and areas for the postcode given
+- Generate DIFFERENT business names each time
+- Types: funeral_director, florist, mason
+- UK phone format: 5-digit area code
+- Mix of ratings 4.2-4.9
+- Distance 0.5-8.0 miles"""
                 ).with_model("openai", "gpt-4o-mini")
                 
-                prompt = f"Generate 4 realistic funeral/memorial service suppliers (funeral directors, florists, masons) for postcode area: {postcode}"
+                # Get postcode area name
+                postcode_area = search_postcode[:2]
+                area_names = {
+                    'SW': 'South West London', 'NW': 'North West London', 'SE': 'South East London', 
+                    'E': 'East London', 'W': 'West London', 'N': 'North London',
+                    'M': 'Manchester', 'B': 'Birmingham', 'LS': 'Leeds', 'EH': 'Edinburgh',
+                    'G': 'Glasgow', 'BS': 'Bristol', 'L': 'Liverpool', 'NE': 'Newcastle',
+                    'CF': 'Cardiff', 'OX': 'Oxford', 'CB': 'Cambridge', 'BN': 'Brighton'
+                }
+                area_name = area_names.get(postcode_area, 'UK')
+                
+                prompt = f"""Generate 5 DIFFERENT, REALISTIC funeral service suppliers for {area_name}, postcode {postcode}.
+
+Include mix of:
+- 2 funeral directors
+- 2 florists
+- 1 mason/memorial
+
+Use REAL street names from {area_name}. Make business names UNIQUE and location-specific (not "Heritage" or "Peaceful"). Output ONLY the JSON array."""
+                
                 response = await chat.send_message(UserMessage(text=prompt))
                 
-                # Parse JSON response
-                import json
-                # Clean response - remove markdown if present
+                # Clean and parse
                 clean_response = response.strip()
-                if clean_response.startswith("```"):
-                    clean_response = clean_response.split("```")[1]
-                    if clean_response.startswith("json"):
+                if '```' in clean_response:
+                    clean_response = clean_response.split('```')[1]
+                    if clean_response.startswith('json'):
                         clean_response = clean_response[4:]
                 clean_response = clean_response.strip()
                 
                 ai_suppliers = json.loads(clean_response)
-                matching_suppliers = ai_suppliers
                 
-                # Mark as AI-generated
-                for supplier in matching_suppliers:
+                # Ensure different distances and mark as AI
+                for i, supplier in enumerate(ai_suppliers):
                     supplier['ai_generated'] = True
+                    supplier['distance_miles'] = round(random.uniform(0.5, 8.0), 1)
+                    supplier['postcode'] = postcode  # Ensure correct postcode
+                
+                matching_suppliers = ai_suppliers
                     
             except Exception as ai_error:
                 print(f"AI generation error: {ai_error}")
-                # Return empty if AI fails
-                pass
         
-        # Sort by distance
         matching_suppliers.sort(key=lambda x: x.get('distance_miles', 999))
         
         return {
