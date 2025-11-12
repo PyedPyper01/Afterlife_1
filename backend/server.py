@@ -249,14 +249,17 @@ def detect_marketplace_need(message: str, message_count: int = 0) -> Optional[Di
 @api_router.post("/ai/chat", response_model=ChatResponse)
 async def ai_chat(request: ChatRequest):
     """
-    AI-powered chat with smart marketplace redirection
+    AI-powered chat with sensitive, gradual marketplace suggestions
     """
     try:
         if not EMERGENT_LLM_KEY:
             raise HTTPException(status_code=500, detail="AI service not configured")
         
-        # Detect marketplace need
-        marketplace_suggestion = detect_marketplace_need(request.message)
+        # Count previous messages to gauge conversation stage
+        message_count = await db.chat_messages.count_documents({"session_id": request.session_id})
+        
+        # Only detect marketplace need after proper support (3+ messages)
+        marketplace_suggestion = detect_marketplace_need(request.message, message_count)
         
         # Initialize LLM chat
         chat = LlmChat(
@@ -282,7 +285,7 @@ async def ai_chat(request: ChatRequest):
         }
         await db.chat_messages.insert_one(user_message_doc)
         
-        # Save assistant message with marketplace suggestion
+        # Save assistant message with marketplace suggestion (only if appropriate)
         assistant_message_doc = {
             "id": str(uuid.uuid4()),
             "session_id": request.session_id,
@@ -294,7 +297,7 @@ async def ai_chat(request: ChatRequest):
         }
         await db.chat_messages.insert_one(assistant_message_doc)
         
-        logger.info(f"AI chat completed for session {request.session_id}")
+        logger.info(f"AI chat completed for session {request.session_id} (message #{message_count + 1})")
         
         return ChatResponse(
             session_id=request.session_id,
