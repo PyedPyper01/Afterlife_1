@@ -200,18 +200,40 @@ async def health():
 
 # ==================== AI CHAT ====================
 
-def detect_marketplace_need(message: str) -> Optional[Dict[str, Any]]:
+def detect_marketplace_need(message: str, message_count: int = 0) -> Optional[Dict[str, Any]]:
     """
-    Detect if user needs marketplace services
+    Detect if user needs marketplace services - ONLY after proper support
+    Only trigger after several messages to ensure sensitivity
     """
+    # Don't suggest marketplace in first 3 messages - too early and insensitive
+    if message_count < 3:
+        return None
+    
     message_lower = message.lower()
     
+    # Only detect explicit service requests
+    explicit_requests = [
+        'where can i find', 
+        'need a funeral director',
+        'looking for a florist',
+        'find a funeral home',
+        'recommend a',
+        'who should i contact',
+        'need help finding'
+    ]
+    
+    # Check if this is an explicit request
+    is_explicit_request = any(phrase in message_lower for phrase in explicit_requests)
+    
+    if not is_explicit_request:
+        return None
+    
     service_keywords = {
-        'funeral_director': ['funeral director', 'funeral home', 'undertaker', 'mortician', 'funeral service', 'funeral'],
-        'florist': ['florist', 'flowers', 'flower arrangement', 'wreath', 'bouquet'],
-        'mason': ['mason', 'stonemason', 'headstone', 'gravestone', 'memorial stone', 'tombstone'],
-        'venue': ['venue', 'wake', 'reception', 'hall', 'place for gathering'],
-        'caterer': ['caterer', 'catering', 'food', 'refreshments', 'buffet']
+        'funeral_director': ['funeral director', 'funeral home', 'undertaker', 'mortician'],
+        'florist': ['florist', 'flowers', 'flower arrangement'],
+        'mason': ['mason', 'stonemason', 'headstone', 'gravestone'],
+        'venue': ['venue', 'wake', 'reception', 'hall'],
+        'caterer': ['caterer', 'catering', 'food service']
     }
     
     for service_type, keywords in service_keywords.items():
