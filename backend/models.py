@@ -51,6 +51,16 @@ class AssessmentResponseCreate(BaseModel):
     timeline: Optional[str] = None
     special_circumstances: Optional[str] = None
 
+class AssessmentResponseCreate(BaseModel):
+    session_id: str
+    relationship: str
+    location: str
+    religion: str
+    budget: str
+    preference: str
+    timeline: Optional[str] = None
+    special_circumstances: Optional[str] = None
+
 class StepProgress(BaseModel):
     id: str = Field(default_factory=lambda: str(uuid.uuid4()))
     session_id: str
