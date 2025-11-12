@@ -1,241 +1,93 @@
-from fastapi import APIRouter, HTTPException, Depends
-from typing import List, Optional
-from models import (
-    UserSession, UserSessionCreate, UserSessionUpdate,
-    AssessmentResponse, AssessmentResponseCreate,
-    StepProgress, StepProgressCreate, StepProgressUpdate,
-    SupportResource, GuidanceData
-)
-from database import (
-    user_sessions, assessment_responses, step_progress,
-    support_resources, guidance_data
-)
+from fastapi import APIRouter, HTTPException
+from motor.motor_asyncio import AsyncIOMotorClient
+from models import *
+import os
 from datetime import datetime
 
 router = APIRouter()
+mongo_url = os.environ['MONGO_URL']
+client = AsyncIOMotorClient(mongo_url)
+db = client[os.environ['DB_NAME']]
 
-# User Session endpoints
+# User Sessions
 @router.post("/sessions", response_model=UserSession)
-async def create_user_session(session: UserSessionCreate):
-    """Create a new user session"""
-    try:
-        session_data = UserSession(**session.dict())
-        result = await user_sessions.insert_one(session_data.dict())
-        
-        if result.inserted_id:
-            return session_data
-        else:
-            raise HTTPException(status_code=500, detail="Failed to create session")
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Error creating session: {str(e)}")
+async def create_session(session: UserSessionCreate):
+    session_dict = UserSession(**session.dict()).dict()
+    session_dict['created_at'] = session_dict['created_at'].isoformat()
+    session_dict['updated_at'] = session_dict['updated_at'].isoformat()
+    await db.sessions.insert_one(session_dict)
+    return UserSession(**session_dict)
 
 @router.get("/sessions/{session_id}", response_model=UserSession)
-async def get_user_session(session_id: str):
-    """Get a user session by ID"""
-    try:
-        session = await user_sessions.find_one({"id": session_id})
-        if session:
-            return UserSession(**session)
-        else:
-            raise HTTPException(status_code=404, detail="Session not found")
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Error retrieving session: {str(e)}")
+async def get_session(session_id: str):
+    session = await db.sessions.find_one({"id": session_id}, {"_id": 0})
+    if not session:
+        raise HTTPException(status_code=404, detail="Session not found")
+    return session
 
 @router.put("/sessions/{session_id}", response_model=UserSession)
-async def update_user_session(session_id: str, session_update: UserSessionUpdate):
-    """Update a user session"""
-    try:
-        update_data = {k: v for k, v in session_update.dict().items() if v is not None}
-        update_data["updated_at"] = datetime.utcnow()
-        
-        result = await user_sessions.update_one(
-            {"id": session_id},
-            {"$set": update_data}
-        )
-        
-        if result.matched_count == 0:
-            raise HTTPException(status_code=404, detail="Session not found")
-        
-        updated_session = await user_sessions.find_one({"id": session_id})
-        return UserSession(**updated_session)
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Error updating session: {str(e)}")
+async def update_session(session_id: str, update: UserSessionUpdate):
+    session = await db.sessions.find_one({"id": session_id}, {"_id": 0})
+    if not session:
+        raise HTTPException(status_code=404, detail="Session not found")
+    
+    update_data = {k: v for k, v in update.dict().items() if v is not None}
+    update_data['updated_at'] = datetime.utcnow().isoformat()
+    
+    await db.sessions.update_one({"id": session_id}, {"$set": update_data})
+    updated_session = await db.sessions.find_one({"id": session_id}, {"_id": 0})
+    return updated_session
 
-# Assessment Response endpoints
+# Assessment Responses
 @router.post("/assessments", response_model=AssessmentResponse)
-async def create_assessment_response(assessment: AssessmentResponseCreate):
-    """Create a new assessment response"""
-    try:
-        assessment_data = AssessmentResponse(**assessment.dict())
-        result = await assessment_responses.insert_one(assessment_data.dict())
-        
-        if result.inserted_id:
-            return assessment_data
-        else:
-            raise HTTPException(status_code=500, detail="Failed to create assessment")
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Error creating assessment: {str(e)}")
+async def create_assessment(assessment: AssessmentResponseCreate):
+    assessment_dict = AssessmentResponse(**assessment.dict()).dict()
+    assessment_dict['created_at'] = assessment_dict['created_at'].isoformat()
+    await db.assessments.insert_one(assessment_dict)
+    return AssessmentResponse(**assessment_dict)
 
 @router.get("/assessments/{session_id}", response_model=AssessmentResponse)
-async def get_assessment_by_session(session_id: str):
-    """Get assessment response by session ID"""
-    try:
-        assessment = await assessment_responses.find_one({"session_id": session_id})
-        if assessment:
-            return AssessmentResponse(**assessment)
-        else:
-            raise HTTPException(status_code=404, detail="Assessment not found")
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Error retrieving assessment: {str(e)}")
+async def get_assessment(session_id: str):
+    assessment = await db.assessments.find_one({"session_id": session_id}, {"_id": 0})
+    if not assessment:
+        raise HTTPException(status_code=404, detail="Assessment not found")
+    return assessment
 
-# Step Progress endpoints
-@router.post("/step-progress", response_model=StepProgress)
-async def create_step_progress(progress: StepProgressCreate):
-    """Create or update step progress"""
-    try:
-        # Check if progress already exists for this session and step
-        existing_progress = await step_progress.find_one({
-            "session_id": progress.session_id,
-            "step_id": progress.step_id
-        })
-        
-        if existing_progress:
-            # Update existing progress
-            update_data = {
-                "completed_tasks": progress.completed_tasks,
-                "step_data": progress.step_data,
-                "updated_at": datetime.utcnow()
-            }
-            
-            await step_progress.update_one(
-                {"session_id": progress.session_id, "step_id": progress.step_id},
-                {"$set": update_data}
-            )
-            
-            updated_progress = await step_progress.find_one({
-                "session_id": progress.session_id,
-                "step_id": progress.step_id
-            })
-            return StepProgress(**updated_progress)
-        else:
-            # Create new progress
-            progress_data = StepProgress(**progress.dict())
-            result = await step_progress.insert_one(progress_data.dict())
-            
-            if result.inserted_id:
-                return progress_data
-            else:
-                raise HTTPException(status_code=500, detail="Failed to create step progress")
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Error creating step progress: {str(e)}")
+# Step Progress
+@router.post("/progress", response_model=StepProgress)
+async def create_progress(progress: StepProgressCreate):
+    progress_dict = StepProgress(**progress.dict()).dict()
+    progress_dict['created_at'] = progress_dict['created_at'].isoformat()
+    await db.progress.insert_one(progress_dict)
+    return StepProgress(**progress_dict)
 
-@router.get("/step-progress/{session_id}", response_model=List[StepProgress])
-async def get_step_progress_by_session(session_id: str):
-    """Get all step progress for a session"""
-    try:
-        progress_cursor = step_progress.find({"session_id": session_id})
-        progress_list = await progress_cursor.to_list(length=None)
-        return [StepProgress(**progress) for progress in progress_list]
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Error retrieving step progress: {str(e)}")
+@router.get("/progress/{session_id}")
+async def get_progress(session_id: str):
+    progress_list = await db.progress.find({"session_id": session_id}, {"_id": 0}).to_list(100)
+    return {"progress": progress_list}
 
-@router.put("/step-progress/{session_id}/{step_id}", response_model=StepProgress)
-async def update_step_progress(session_id: str, step_id: str, progress_update: StepProgressUpdate):
-    """Update step progress"""
-    try:
-        update_data = {k: v for k, v in progress_update.dict().items() if v is not None}
-        update_data["updated_at"] = datetime.utcnow()
-        
-        result = await step_progress.update_one(
-            {"session_id": session_id, "step_id": step_id},
-            {"$set": update_data}
-        )
-        
-        if result.matched_count == 0:
-            raise HTTPException(status_code=404, detail="Step progress not found")
-        
-        updated_progress = await step_progress.find_one({
-            "session_id": session_id,
-            "step_id": step_id
-        })
-        return StepProgress(**updated_progress)
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Error updating step progress: {str(e)}")
+# Support Resources
+@router.get("/resources")
+async def get_resources(type: str = None, category: str = None):
+    query = {}
+    if type:
+        query["type"] = type
+    if category:
+        query["category"] = category
+    resources = await db.resources.find(query, {"_id": 0}).to_list(100)
+    return {"resources": resources}
 
-# Support Resources endpoints
-@router.get("/support-resources", response_model=List[SupportResource])
-async def get_support_resources(category: Optional[str] = None, type: Optional[str] = None):
-    """Get support resources, optionally filtered by category or type"""
-    try:
-        filter_query = {}
-        if category:
-            filter_query["category"] = category
-        if type:
-            filter_query["type"] = type
-        
-        resources_cursor = support_resources.find(filter_query)
-        resources_list = await resources_cursor.to_list(length=None)
-        return [SupportResource(**resource) for resource in resources_list]
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Error retrieving support resources: {str(e)}")
-
-# Guidance Data endpoints
-@router.get("/guidance-data", response_model=List[GuidanceData])
-async def get_guidance_data(
-    category: Optional[str] = None,
-    religion: Optional[str] = None,
-    location: Optional[str] = None,
-    budget: Optional[str] = None
-):
-    """Get guidance data, optionally filtered by various criteria"""
-    try:
-        filter_query = {}
-        if category:
-            filter_query["category"] = category
-        if religion:
-            filter_query["religion"] = religion
-        if location:
-            filter_query["location"] = location
-        if budget:
-            filter_query["budget"] = budget
-        
-        guidance_cursor = guidance_data.find(filter_query)
-        guidance_list = await guidance_cursor.to_list(length=None)
-        return [GuidanceData(**guidance) for guidance in guidance_list]
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Error retrieving guidance data: {str(e)}")
-
-@router.get("/guidance-data/{category}")
-async def get_guidance_by_category(
-    category: str, 
-    religion: Optional[str] = None,
-    location: Optional[str] = None,
-    budget: Optional[str] = None
-):
-    """Get guidance data by category with optional filters"""
-    try:
-        filter_query = {"category": category}
-        
-        # Add any additional filters from query parameters
-        if religion:
-            filter_query["religion"] = religion
-        if location:
-            filter_query["location"] = location
-        if budget:
-            filter_query["budget"] = budget
-        
-        guidance_cursor = guidance_data.find(filter_query)
-        guidance_list = await guidance_cursor.to_list(length=None)
-        
-        if not guidance_list:
-            raise HTTPException(status_code=404, detail=f"No guidance data found for category: {category}")
-        
-        return [GuidanceData(**guidance) for guidance in guidance_list]
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Error retrieving guidance data: {str(e)}")
-
-# Health check endpoint
-@router.get("/health")
-async def health_check():
-    """Health check endpoint"""
-    return {"status": "healthy", "timestamp": datetime.utcnow()}
+# Guidance Data
+@router.get("/guidance")
+async def get_guidance(category: str, religion: str = None, location: str = None, budget: str = None):
+    query = {"category": category}
+    if religion:
+        query["religion"] = religion
+    if location:
+        query["location"] = location
+    if budget:
+        query["budget"] = budget
+    guidance = await db.guidance.find_one(query, {"_id": 0})
+    if not guidance:
+        raise HTTPException(status_code=404, detail="Guidance not found")
+    return guidance
