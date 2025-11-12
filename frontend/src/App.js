@@ -54,7 +54,7 @@ function App() {
 
           <div className="grid md:grid-cols-3 gap-6 mb-12">
             <div 
-              onClick={() => setCurrentPage('chat')}
+              onClick={() => setCurrentPage('journey')}
               className="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition cursor-pointer border-2 border-purple-200"
             >
               <div className="text-4xl mb-4">🤖</div>
