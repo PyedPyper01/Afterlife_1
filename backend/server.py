@@ -1,16 +1,22 @@
 from fastapi import FastAPI, APIRouter, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
-from typing import List, Dict, Optional
+from typing import List, Dict
 import os
 from dotenv import load_dotenv
 from pathlib import Path
+from motor.motor_asyncio import AsyncIOMotorClient
 
 # Import emergentintegrations for OpenAI
 from emergentintegrations.llm.chat import LlmChat, UserMessage
 
 ROOT_DIR = Path(__file__).parent
 load_dotenv(ROOT_DIR / '.env')
+
+# MongoDB setup
+mongo_url = os.environ.get('MONGO_URL', 'mongodb://localhost:27017')
+client = AsyncIOMotorClient(mongo_url)
+db = client[os.environ.get('DB_NAME', 'premium_tribute_db')]
 
 app = FastAPI(title="AfterLife API")
 api_router = APIRouter(prefix="/api")
@@ -63,6 +69,11 @@ When users need services, say: "You can find verified [service type] in our Mark
 
 Always provide thorough, expert-level guidance."""
 
+# Health check
+@api_router.get("/")
+async def root():
+    return {"status": "healthy", "service": "AfterLife API"}
+
 # Chat endpoint
 @api_router.post("/chat", response_model=ChatResponse)
 async def chat(request: ChatRequest):
@@ -87,29 +98,7 @@ async def chat(request: ChatRequest):
         print(f"Chat error: {e}")
         raise HTTPException(status_code=500, detail=str(e))
 
-# Health check
-@api_router.get("/")
-async def root():
-    return {"status": "healthy", "service": "AfterLife API"}
-
-# Include router
-app.include_router(api_router)
-
-# CORS
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["*"],
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
-
-# Keep existing supplier routes
-from motor.motor_asyncio import AsyncIOMotorClient
-
-mongo_url = os.environ.get('MONGO_URL', 'mongodb://localhost:27017')
-client = AsyncIOMotorClient(mongo_url)
-db = client[os.environ.get('DB_NAME', 'premium_tribute_db')]
-
+# Marketplace search
 @api_router.get("/suppliers/search")
 async def search_suppliers(postcode: str):
     try:
@@ -147,3 +136,14 @@ async def search_suppliers(postcode: str):
     except Exception as e:
         print(f"Search error: {e}")
         return {"suppliers": [], "error": str(e)}
+
+# Include router
+app.include_router(api_router)
+
+# CORS
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
