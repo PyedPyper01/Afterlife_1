@@ -20,6 +20,15 @@ class UserSessionUpdate(BaseModel):
     is_complete: Optional[bool] = None
     user_responses: Optional[Dict[str, Any]] = None
 
+class UserSessionCreate(BaseModel):
+    current_step: int = 0
+    user_responses: Dict[str, Any] = {}
+
+class UserSessionUpdate(BaseModel):
+    current_step: Optional[int] = None
+    is_complete: Optional[bool] = None
+    user_responses: Optional[Dict[str, Any]] = None
+
 class AssessmentResponse(BaseModel):
     id: str = Field(default_factory=lambda: str(uuid.uuid4()))
     session_id: str
