@@ -17,7 +17,7 @@ import { DocumentVaultScreen } from '@/components/DocumentVaultScreen'
 import { ChatScreen } from '@/components/ChatScreen'
 import { ChecklistScreen } from '@/components/ChecklistScreen'
 import { ConciergeScreen } from '@/components/ConciergeScreen'
-import { theme, cn } from './theme'
+import { theme, cn } from '@/theme'
 
 type Step = 'welcome' | 'triage' | 'guidance' | 'marketplace' | 'memorial' | 'documents' | 'chat' | 'concierge' | 'checklist'
 type DeathLocation = 'home-expected' | 'home-unexpected' | 'hospital' | 'care-home' | 'abroad' | 'crime-scene' | ''
