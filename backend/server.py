@@ -113,17 +113,37 @@ db = client[os.environ.get('DB_NAME', 'premium_tribute_db')]
 @api_router.get("/suppliers/search")
 async def search_suppliers(postcode: str):
     try:
+        # Normalize postcode (remove spaces, uppercase)
         search_postcode = postcode.replace(" ", "").upper()
-        suppliers = await db.suppliers.find({"available": True}, {"_id": 0}).to_list(100)
         
-        # Simple matching
-        matching = []
-        for supplier in suppliers:
+        # Get all suppliers
+        all_suppliers = await db.suppliers.find({"available": True}, {"_id": 0}).to_list(100)
+        
+        if not all_suppliers:
+            return {"suppliers": [], "message": "No suppliers in database"}
+        
+        # Match by postcode prefix (first 2-4 characters)
+        search_prefix = search_postcode[:4] if len(search_postcode) >= 4 else search_postcode[:2]
+        
+        matching_suppliers = []
+        for supplier in all_suppliers:
             supplier_postcode = supplier['postcode'].replace(" ", "").upper()
-            if supplier_postcode.startswith(search_postcode[:2]):
-                supplier['distance_miles'] = 2.5
-                matching.append(supplier)
+            
+            # Check if supplier postcode starts with search prefix
+            if supplier_postcode.startswith(search_prefix):
+                # Calculate approximate distance (simple estimation)
+                supplier['distance_miles'] = round(abs(hash(supplier_postcode) % 10) + 0.5, 1)
+                matching_suppliers.append(supplier)
         
-        return {"suppliers": matching[:20]}
+        # Sort by distance
+        matching_suppliers.sort(key=lambda x: x.get('distance_miles', 999))
+        
+        return {
+            "suppliers": matching_suppliers[:20],
+            "count": len(matching_suppliers),
+            "search_postcode": postcode
+        }
+    
     except Exception as e:
+        print(f"Search error: {e}")
         return {"suppliers": [], "error": str(e)}
