@@ -1522,6 +1522,304 @@ function PaymentCancelled() {
   )
 }
 
+// ==================== DOCUMENTS ====================
+function Documents({ sessionId }) {
+  const [documents, setDocuments] = useState([])
+  const [loading, setLoading] = useState(false)
+  const [uploading, setUploading] = useState(false)
+  const [selectedType, setSelectedType] = useState('death_certificate')
+  const [notes, setNotes] = useState('')
+
+  useEffect(() => {
+    loadDocuments()
+  }, [sessionId])
+
+  const loadDocuments = async () => {
+    setLoading(true)
+    try {
+      const { data } = await axios.get(`${API}/documents`, {
+        params: { session_id: sessionId }
+      })
+      setDocuments(data.documents || [])
+    } catch (e) {
+      console.error('Failed to load documents:', e)
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  const handleFileUpload = async (e) => {
+    const file = e.target.files[0]
+    if (!file) return
+
+    // Check file size (max 10MB)
+    if (file.size > 10 * 1024 * 1024) {
+      alert('File too large. Maximum size is 10MB.')
+      return
+    }
+
+    setUploading(true)
+
+    try {
+      // Convert file to base64
+      const reader = new FileReader()
+      reader.readAsDataURL(file)
+      
+      reader.onload = async () => {
+        const base64Content = reader.result.split(',')[1]
+        
+        await axios.post(`${API}/documents/upload`, {
+          filename: file.name,
+          document_type: selectedType,
+          content: base64Content,
+          mime_type: file.type,
+          size_bytes: file.size,
+          notes: notes,
+          session_id: sessionId
+        })
+
+        // Reload documents
+        await loadDocuments()
+        setNotes('')
+        alert('Document uploaded successfully!')
+      }
+
+      reader.onerror = () => {
+        alert('Failed to read file')
+      }
+    } catch (e) {
+      console.error('Upload failed:', e)
+      alert('Upload failed. Please try again.')
+    } finally {
+      setUploading(false)
+    }
+  }
+
+  const handleDelete = async (docId) => {
+    if (!window.confirm('Are you sure you want to delete this document?')) return
+
+    try {
+      await axios.delete(`${API}/documents/${docId}`)
+      await loadDocuments()
+    } catch (e) {
+      console.error('Delete failed:', e)
+      alert('Failed to delete document')
+    }
+  }
+
+  const formatFileSize = (bytes) => {
+    if (bytes < 1024) return bytes + ' B'
+    if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + ' KB'
+    return (bytes / (1024 * 1024)).toFixed(1) + ' MB'
+  }
+
+  const formatDate = (isoString) => {
+    return new Date(isoString).toLocaleDateString('en-GB', {
+      day: 'numeric',
+      month: 'short',
+      year: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit'
+    })
+  }
+
+  return (
+    <div className="documents-page" style={{padding: '120px 40px 60px', maxWidth: '1200px', margin: '0 auto'}}>
+      <div style={{
+        background: 'rgba(255, 255, 255, 0.05)',
+        backdropFilter: 'blur(20px)',
+        borderRadius: '24px',
+        padding: '48px',
+        border: '1px solid rgba(255, 255, 255, 0.1)'
+      }}>
+        <h1 style={{fontSize: '48px', marginBottom: '16px', textAlign: 'center'}}>
+          Document<span style={{color: '#87ceeb'}}> Vault</span>
+        </h1>
+        <p style={{textAlign: 'center', fontSize: '18px', color: 'rgba(255, 255, 255, 0.7)', marginBottom: '48px'}}>
+          Securely store and manage important documents - death certificates, wills, insurance papers, and more.
+        </p>
+
+        {/* Upload Section */}
+        <div style={{
+          background: 'rgba(255, 255, 255, 0.03)',
+          borderRadius: '16px',
+          padding: '32px',
+          marginBottom: '48px',
+          border: '2px dashed rgba(135, 206, 235, 0.3)'
+        }}>
+          <h2 style={{fontSize: '24px', marginBottom: '24px'}}>📤 Upload Document</h2>
+          
+          <div style={{marginBottom: '20px'}}>
+            <label style={{display: 'block', marginBottom: '8px', fontSize: '14px', color: 'rgba(255, 255, 255, 0.8)'}}>
+              Document Type
+            </label>
+            <select 
+              value={selectedType}
+              onChange={(e) => setSelectedType(e.target.value)}
+              style={{
+                width: '100%',
+                padding: '12px',
+                background: 'rgba(255, 255, 255, 0.05)',
+                border: '1px solid rgba(255, 255, 255, 0.1)',
+                borderRadius: '8px',
+                color: 'white',
+                fontSize: '16px'
+              }}
+            >
+              <option value="death_certificate">Death Certificate</option>
+              <option value="will">Will / Testament</option>
+              <option value="insurance">Insurance Documents</option>
+              <option value="bank">Bank Statements</option>
+              <option value="property">Property Documents</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+
+          <div style={{marginBottom: '20px'}}>
+            <label style={{display: 'block', marginBottom: '8px', fontSize: '14px', color: 'rgba(255, 255, 255, 0.8)'}}>
+              Notes (Optional)
+            </label>
+            <input
+              type="text"
+              value={notes}
+              onChange={(e) => setNotes(e.target.value)}
+              placeholder="Add any notes about this document..."
+              style={{
+                width: '100%',
+                padding: '12px',
+                background: 'rgba(255, 255, 255, 0.05)',
+                border: '1px solid rgba(255, 255, 255, 0.1)',
+                borderRadius: '8px',
+                color: 'white',
+                fontSize: '16px'
+              }}
+            />
+          </div>
+
+          <div>
+            <label style={{
+              display: 'inline-block',
+              padding: '16px 32px',
+              background: uploading ? 'rgba(135, 206, 235, 0.3)' : 'rgba(135, 206, 235, 0.8)',
+              color: 'white',
+              borderRadius: '12px',
+              cursor: uploading ? 'not-allowed' : 'pointer',
+              fontSize: '18px',
+              fontWeight: '600',
+              transition: 'all 0.3s ease'
+            }}>
+              {uploading ? 'Uploading...' : '📎 Choose File'}
+              <input
+                type="file"
+                onChange={handleFileUpload}
+                disabled={uploading}
+                accept=".pdf,.doc,.docx,.jpg,.jpeg,.png,.txt"
+                style={{display: 'none'}}
+              />
+            </label>
+            <p style={{marginTop: '12px', fontSize: '14px', color: 'rgba(255, 255, 255, 0.6)'}}>
+              Supported: PDF, Word, Images (Max 10MB)
+            </p>
+          </div>
+        </div>
+
+        {/* Documents List */}
+        <div>
+          <h2 style={{fontSize: '24px', marginBottom: '24px'}}>📁 Your Documents</h2>
+          
+          {loading ? (
+            <div style={{textAlign: 'center', padding: '40px'}}>
+              <p style={{color: 'rgba(255, 255, 255, 0.6)'}}>Loading documents...</p>
+            </div>
+          ) : documents.length === 0 ? (
+            <div style={{
+              textAlign: 'center',
+              padding: '60px 40px',
+              background: 'rgba(255, 255, 255, 0.03)',
+              borderRadius: '16px'
+            }}>
+              <p style={{fontSize: '18px', color: 'rgba(255, 255, 255, 0.6)'}}>
+                No documents uploaded yet. Upload your first document above.
+              </p>
+            </div>
+          ) : (
+            <div style={{display: 'grid', gap: '16px'}}>
+              {documents.map(doc => (
+                <div
+                  key={doc.id}
+                  style={{
+                    background: 'rgba(255, 255, 255, 0.05)',
+                    borderRadius: '12px',
+                    padding: '24px',
+                    border: '1px solid rgba(255, 255, 255, 0.1)',
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                    transition: 'all 0.3s ease'
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.background = 'rgba(255, 255, 255, 0.08)'
+                    e.currentTarget.style.border = '1px solid rgba(135, 206, 235, 0.3)'
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.background = 'rgba(255, 255, 255, 0.05)'
+                    e.currentTarget.style.border = '1px solid rgba(255, 255, 255, 0.1)'
+                  }}
+                >
+                  <div style={{flex: 1}}>
+                    <h3 style={{fontSize: '18px', marginBottom: '8px'}}>{doc.filename}</h3>
+                    <div style={{display: 'flex', gap: '16px', fontSize: '14px', color: 'rgba(255, 255, 255, 0.6)'}}>
+                      <span>📄 {doc.document_type.replace('_', ' ').toUpperCase()}</span>
+                      <span>💾 {formatFileSize(doc.size_bytes)}</span>
+                      <span>📅 {formatDate(doc.created_at)}</span>
+                    </div>
+                    {doc.notes && (
+                      <p style={{marginTop: '8px', fontSize: '14px', color: 'rgba(255, 255, 255, 0.7)', fontStyle: 'italic'}}>
+                        {doc.notes}
+                      </p>
+                    )}
+                  </div>
+                  <button
+                    onClick={() => handleDelete(doc.id)}
+                    style={{
+                      padding: '8px 16px',
+                      background: 'rgba(220, 38, 38, 0.6)',
+                      border: 'none',
+                      borderRadius: '8px',
+                      color: 'white',
+                      cursor: 'pointer',
+                      fontSize: '14px',
+                      transition: 'all 0.3s ease'
+                    }}
+                    onMouseEnter={(e) => e.currentTarget.style.background = 'rgba(220, 38, 38, 0.8)'}
+                    onMouseLeave={(e) => e.currentTarget.style.background = 'rgba(220, 38, 38, 0.6)'}
+                  >
+                    🗑️ Delete
+                  </button>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+
+        <div style={{
+          marginTop: '48px',
+          padding: '24px',
+          background: 'rgba(135, 206, 235, 0.1)',
+          borderRadius: '12px',
+          border: '1px solid rgba(135, 206, 235, 0.3)'
+        }}>
+          <h3 style={{fontSize: '18px', marginBottom: '12px'}}>🔒 Security & Privacy</h3>
+          <p style={{fontSize: '14px', color: 'rgba(255, 255, 255, 0.8)', lineHeight: '1.6'}}>
+            Your documents are stored securely and encrypted. They are only accessible to you and can be shared 
+            with professionals when needed. We never access your documents without your permission.
+          </p>
+        </div>
+      </div>
+    </div>
+  )
+}
+
 // ==================== FOOTER ====================
 function Footer() {
   return (
