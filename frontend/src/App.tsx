@@ -47,8 +47,8 @@ interface WelcomeScreenProps {
 }
 
 const WelcomeScreen = ({ voiceEnabled, isListening, setIsListening, setCurrentStep, setVoiceEnabled }: WelcomeScreenProps) => (
-  <div className={cn(theme.gradient.page, 'min-h-screen relative overflow-hidden')}>
-    <ParallaxBackground />
+  <div className="home-premium">
+    <section className="hero-premium" style={{paddingTop: '30px', paddingBottom: '40px'}}>
     
     <div className="container mx-auto px-4 py-16 relative z-10">
       <div className="max-w-6xl mx-auto">
