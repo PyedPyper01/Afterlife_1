@@ -1,34 +1,111 @@
-.App-logo {
-    height: 40vmin;
-    pointer-events: none;
+/* Premium Tribute Design - Applied */
+
+/* Global Dark Theme */
+body {
+  margin: 0;
+  padding: 0;
+  background: #1a1a1a !important;
+  color: #ffffff !important;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif !important;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+  line-height: 1.6;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-    .App-logo {
-        animation: App-logo-spin infinite 20s linear;
-    }
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
-.App-header {
-    background-color: #0f0f10;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    font-size: calc(10px + 2vmin);
-    color: white;
+/* Override all text colors to white */
+h1, h2, h3, h4, h5, h6, p, span, div, label, a, li {
+  color: #ffffff !important;
 }
 
-.App-link {
-    color: #61dafb;
+/* Premium Animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
-@keyframes App-logo-spin {
-    from {
-        transform: rotate(0deg);
-    }
-    to {
-        transform: rotate(360deg);
-    }
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-10px);
+  }
+  60% {
+    transform: translateY(-5px);
+  }
+}
+
+/* Glass-morphism Cards */
+.premium-card {
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  background: linear-gradient(135deg, rgba(135, 206, 235, 0.08), rgba(70, 130, 180, 0.08));
+  border: 1px solid rgba(135, 206, 235, 0.3);
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.premium-card:hover {
+  background: linear-gradient(135deg, rgba(135, 206, 235, 0.12), rgba(70, 130, 180, 0.12));
+  border-color: rgba(135, 206, 235, 0.5);
+  box-shadow: 0 8px 30px rgba(135, 206, 235, 0.2);
+  transform: translateY(-8px);
+}
+
+/* Premium Buttons */
+.premium-button {
+  background: linear-gradient(135deg, #87CEEB, #4682B4);
+  color: #ffffff !important;
+  border: none;
+  padding: 18px 48px;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  border-radius: 0;
+  transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 0 40px rgba(74, 144, 226, 0.3);
+  cursor: pointer;
+}
+
+.premium-button:hover {
+  background: linear-gradient(135deg, #4682B4, #87CEEB);
+  box-shadow: 0 0 60px rgba(74, 144, 226, 0.6);
+  transform: translateY(-2px);
+}
+
+/* Premium Text Styles */
+.premium-heading {
+  font-family: 'Inter', sans-serif;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  color: #ffffff;
+}
+
+.accent-text {
+  color: #87CEEB !important;
+}
+
+/* Smooth Transitions */
+.smooth-transition {
+  transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.fast-transition {
+  transition: all 0.3s ease;
 }
