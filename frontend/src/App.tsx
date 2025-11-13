@@ -182,7 +182,7 @@ const WelcomeScreen = ({ voiceEnabled, isListening, setIsListening, setCurrentSt
           <button 
             style={{
               background: 'linear-gradient(135deg, #87CEEB, #4682B4)',
-              color: '#000000',
+              color: '#ffffff',
               border: 'none',
               padding: '18px 48px',
               fontSize: '14px',
@@ -192,7 +192,8 @@ const WelcomeScreen = ({ voiceEnabled, isListening, setIsListening, setCurrentSt
               borderRadius: '0',
               cursor: 'pointer',
               transition: 'all 0.8s cubic-bezier(0.4, 0, 0.2, 1)',
-              boxShadow: '0 0 40px rgba(135, 206, 235, 0.3)'
+              boxShadow: '0 0 40px rgba(135, 206, 235, 0.3)',
+              textShadow: '0 2px 4px rgba(0, 0, 0, 0.3)'
             }}
             onClick={() => setCurrentStep('triage')}
             onMouseEnter={(e) => {
@@ -206,7 +207,7 @@ const WelcomeScreen = ({ voiceEnabled, isListening, setIsListening, setCurrentSt
               e.currentTarget.style.transform = 'translateY(0)'
             }}
           >
-            Start Your Journey
+            START YOUR JOURNEY
           </button>
           <button 
             style={{
