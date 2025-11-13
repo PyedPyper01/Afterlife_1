@@ -119,35 +119,33 @@ h1, h2, h3, h4, h5, h6, p, span, div, label, a, li, button {
   display: block;
 }
 
-/* GLASSMORPHISM CARDS - Semi-translucent grey boxes from original Premium Tribute */
+/* SOLID CARDS - Like Crisis Support button but reverse colors */
 .premium-card {
-  background: rgba(128, 128, 128, 0.15) !important;
-  backdrop-filter: blur(20px) !important;
-  -webkit-backdrop-filter: blur(20px) !important;
-  border: 1px solid rgba(255, 255, 255, 0.18) !important;
+  background: rgba(255, 255, 255, 0.95) !important;
+  border: 2px solid #87CEEB !important;
   border-radius: 16px;
-  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-  transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   padding: 24px;
 }
 
 .premium-card:hover {
-  background: rgba(128, 128, 128, 0.25) !important;
-  border: 1px solid rgba(135, 206, 235, 0.4) !important;
-  box-shadow: 0 12px 40px rgba(135, 206, 235, 0.3);
-  transform: translateY(-8px);
+  background: #ffffff !important;
+  border: 2px solid #4682B4 !important;
+  box-shadow: 0 12px 40px rgba(135, 206, 235, 0.4);
+  transform: translateY(-4px);
 }
 
-/* Card text must be WHITE */
+/* Card text must be DARK for readability on white background */
 .premium-card h3, 
 .premium-card p, 
 .premium-card span,
 .premium-card div {
-  color: #ffffff !important;
+  color: #1a1a1a !important;
 }
 
 .premium-card .text-xl {
-  color: #87CEEB !important;
+  color: #4682B4 !important;
   font-weight: 700;
 }
 
