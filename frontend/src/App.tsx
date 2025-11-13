@@ -180,15 +180,59 @@ const WelcomeScreen = ({ voiceEnabled, isListening, setIsListening, setCurrentSt
 
         <div className="flex flex-col sm:flex-row gap-5 justify-center mb-8">
           <button 
-            className="premium-button"
+            style={{
+              background: 'linear-gradient(135deg, #87CEEB, #4682B4)',
+              color: '#000000',
+              border: 'none',
+              padding: '18px 48px',
+              fontSize: '14px',
+              fontWeight: '700',
+              letterSpacing: '2px',
+              textTransform: 'uppercase',
+              borderRadius: '0',
+              cursor: 'pointer',
+              transition: 'all 0.8s cubic-bezier(0.4, 0, 0.2, 1)',
+              boxShadow: '0 0 40px rgba(135, 206, 235, 0.3)'
+            }}
             onClick={() => setCurrentStep('triage')}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.background = 'linear-gradient(135deg, #4682B4, #87CEEB)'
+              e.currentTarget.style.boxShadow = '0 0 60px rgba(135, 206, 235, 0.6)'
+              e.currentTarget.style.transform = 'translateY(-2px)'
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.background = 'linear-gradient(135deg, #87CEEB, #4682B4)'
+              e.currentTarget.style.boxShadow = '0 0 40px rgba(135, 206, 235, 0.3)'
+              e.currentTarget.style.transform = 'translateY(0)'
+            }}
           >
             Start Your Journey
           </button>
           <button 
-            className="premium-button" 
-            style={{background: 'transparent', border: '1px solid rgba(255, 255, 255, 0.3)'}}
+            style={{
+              background: 'transparent',
+              color: '#ffffff',
+              border: '2px solid #ffffff',
+              padding: '18px 48px',
+              fontSize: '14px',
+              fontWeight: '700',
+              letterSpacing: '2px',
+              textTransform: 'uppercase',
+              borderRadius: '0',
+              cursor: 'pointer',
+              transition: 'all 0.8s cubic-bezier(0.4, 0, 0.2, 1)'
+            }}
             onClick={() => setCurrentStep('chat')}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.background = 'rgba(255, 255, 255, 0.1)'
+              e.currentTarget.style.borderColor = '#87CEEB'
+              e.currentTarget.style.transform = 'translateY(-2px)'
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.background = 'transparent'
+              e.currentTarget.style.borderColor = '#ffffff'
+              e.currentTarget.style.transform = 'translateY(0)'
+            }}
           >
             Talk to AI Guide
           </button>
