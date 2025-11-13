@@ -48,7 +48,109 @@ interface WelcomeScreenProps {
 
 const WelcomeScreen = ({ voiceEnabled, isListening, setIsListening, setCurrentStep, setVoiceEnabled }: WelcomeScreenProps) => (
   <div className="home-premium">
-    <section className="hero-premium" style={{paddingTop: '30px', paddingBottom: '40px'}}>
+    {/* Premium Navigation Header */}
+    <nav style={{
+      position: 'fixed',
+      top: 0,
+      left: 0,
+      right: 0,
+      zIndex: 1000,
+      background: 'rgba(26, 26, 26, 0.85)',
+      backdropFilter: 'blur(10px)',
+      WebkitBackdropFilter: 'blur(10px)',
+      borderBottom: '1px solid rgba(135, 206, 235, 0.2)',
+      padding: '20px 60px'
+    }}>
+      <div style={{
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        gap: '40px',
+        maxWidth: '1400px',
+        margin: '0 auto'
+      }}>
+        <button onClick={() => setCurrentStep('welcome')} style={{
+          color: '#ffffff',
+          fontSize: '14px',
+          fontWeight: '600',
+          letterSpacing: '1px',
+          textTransform: 'uppercase',
+          background: 'none',
+          border: 'none',
+          cursor: 'pointer',
+          transition: 'color 0.3s ease'
+        }} onMouseEnter={(e) => e.currentTarget.style.color = '#87CEEB'} onMouseLeave={(e) => e.currentTarget.style.color = '#ffffff'}>
+          Home
+        </button>
+        <button onClick={() => setCurrentStep('welcome')} style={{
+          color: '#ffffff',
+          fontSize: '14px',
+          fontWeight: '600',
+          letterSpacing: '1px',
+          textTransform: 'uppercase',
+          background: 'none',
+          border: 'none',
+          cursor: 'pointer',
+          transition: 'color 0.3s ease'
+        }} onMouseEnter={(e) => e.currentTarget.style.color = '#87CEEB'} onMouseLeave={(e) => e.currentTarget.style.color = '#ffffff'}>
+          About
+        </button>
+        <button onClick={() => setCurrentStep('triage')} style={{
+          color: '#ffffff',
+          fontSize: '14px',
+          fontWeight: '600',
+          letterSpacing: '1px',
+          textTransform: 'uppercase',
+          background: 'none',
+          border: 'none',
+          cursor: 'pointer',
+          transition: 'color 0.3s ease'
+        }} onMouseEnter={(e) => e.currentTarget.style.color = '#87CEEB'} onMouseLeave={(e) => e.currentTarget.style.color = '#ffffff'}>
+          AI Guide
+        </button>
+        <button onClick={() => setCurrentStep('marketplace')} style={{
+          color: '#ffffff',
+          fontSize: '14px',
+          fontWeight: '600',
+          letterSpacing: '1px',
+          textTransform: 'uppercase',
+          background: 'none',
+          border: 'none',
+          cursor: 'pointer',
+          transition: 'color 0.3s ease'
+        }} onMouseEnter={(e) => e.currentTarget.style.color = '#87CEEB'} onMouseLeave={(e) => e.currentTarget.style.color = '#ffffff'}>
+          Marketplace
+        </button>
+        <button onClick={() => setCurrentStep('memorial')} style={{
+          color: '#ffffff',
+          fontSize: '14px',
+          fontWeight: '600',
+          letterSpacing: '1px',
+          textTransform: 'uppercase',
+          background: 'none',
+          border: 'none',
+          cursor: 'pointer',
+          transition: 'color 0.3s ease'
+        }} onMouseEnter={(e) => e.currentTarget.style.color = '#87CEEB'} onMouseLeave={(e) => e.currentTarget.style.color = '#ffffff'}>
+          Memorial
+        </button>
+        <button onClick={() => setCurrentStep('concierge')} style={{
+          color: '#ffffff',
+          fontSize: '14px',
+          fontWeight: '600',
+          letterSpacing: '1px',
+          textTransform: 'uppercase',
+          background: 'none',
+          border: 'none',
+          cursor: 'pointer',
+          transition: 'color 0.3s ease'
+        }} onMouseEnter={(e) => e.currentTarget.style.color = '#87CEEB'} onMouseLeave={(e) => e.currentTarget.style.color = '#ffffff'}>
+          Concierge
+        </button>
+      </div>
+    </nav>
+
+    <section className="hero-premium" style={{paddingTop: '120px', paddingBottom: '40px'}}>
       {voiceEnabled && (
         <div className="fixed top-4 right-4 z-50">
           <Button
@@ -62,8 +164,12 @@ const WelcomeScreen = ({ voiceEnabled, isListening, setIsListening, setCurrentSt
         </div>
       )}
         
-        <div style={{position: 'relative', height: '300px', display: 'flex', justifyContent: 'center', alignItems: 'center', marginBottom: '40px'}}>
-          <Heart className="mx-auto" style={{height: '300px', width: 'auto', color: '#87CEEB', filter: 'drop-shadow(0px 12px 50px rgba(135, 206, 235, 0.5))'}} />
+        <div style={{position: 'relative', height: '400px', display: 'flex', justifyContent: 'center', alignItems: 'center', marginBottom: '20px'}}>
+          <img 
+            alt="AfterLife Logo" 
+            src="https://customer-assets.emergentagent.com/job_griefhelp-portal/artifacts/f3bwrmaw_X2dsu6Y5A-nrnFWHDtX0r.png" 
+            style={{height: '400px', width: 'auto', objectFit: 'contain', filter: 'drop-shadow(0px 12px 50px rgba(135, 206, 235, 0.5))'}} 
+          />
         </div>
         <h1 className="hero-title-premium" style={{fontSize: 'clamp(32px, 5vw, 64px)', marginBottom: '20px'}}>
           Compassionate <span className="accent">Guidance</span> When You Need It Most
