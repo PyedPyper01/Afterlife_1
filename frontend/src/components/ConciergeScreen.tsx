@@ -232,24 +232,24 @@ export const ConciergeScreen = ({ setCurrentStep }: ConciergeScreenProps) => {
                         <th className={cn('text-left py-3 px-2', theme.text.primary)}>Expertise</th>
                       </tr>
                     </thead>
-                    <tbody className={theme.text.secondary}>
+                    <tbody>
                       <tr className="border-b border-slate-100">
-                        <td className="py-3 px-2 font-semibold">DIY (Self-Service)</td>
-                        <td className="py-3 px-2">£0</td>
-                        <td className="py-3 px-2">40-80 hours</td>
-                        <td className="py-3 px-2">High risk of errors</td>
+                        <td className="py-3 px-2 font-semibold" style={{color: '#ffffff'}}>DIY (Self-Service)</td>
+                        <td className="py-3 px-2" style={{color: 'rgba(255, 255, 255, 0.9)'}}>£0</td>
+                        <td className="py-3 px-2" style={{color: 'rgba(255, 255, 255, 0.9)'}}>40-80 hours</td>
+                        <td className="py-3 px-2" style={{color: 'rgba(255, 255, 255, 0.9)'}}>High risk of errors</td>
                       </tr>
                       <tr className="border-b border-slate-100 bg-indigo-50">
-                        <td className="py-3 px-2 font-semibold">AfterLife Concierge</td>
-                        <td className="py-3 px-2">£1,000 + 1-3%</td>
-                        <td className="py-3 px-2">Minimal (we handle it)</td>
-                        <td className="py-3 px-2">Expert guidance</td>
+                        <td className="py-3 px-2 font-semibold" style={{color: '#ffffff'}}>AfterLife Concierge</td>
+                        <td className="py-3 px-2" style={{color: 'rgba(255, 255, 255, 0.9)'}}>£1,000 + 1-3%</td>
+                        <td className="py-3 px-2" style={{color: 'rgba(255, 255, 255, 0.9)'}}>Minimal (we handle it)</td>
+                        <td className="py-3 px-2" style={{color: 'rgba(255, 255, 255, 0.9)'}}>Expert guidance</td>
                       </tr>
                       <tr className="border-b border-slate-100">
-                        <td className="py-3 px-2 font-semibold">Traditional Solicitor</td>
-                        <td className="py-3 px-2">£2,500 - £10,000+</td>
-                        <td className="py-3 px-2">Low (but expensive)</td>
-                        <td className="py-3 px-2">Legal expertise</td>
+                        <td className="py-3 px-2 font-semibold" style={{color: '#ffffff'}}>Traditional Solicitor</td>
+                        <td className="py-3 px-2" style={{color: 'rgba(255, 255, 255, 0.9)'}}>£2,500 - £10,000+</td>
+                        <td className="py-3 px-2" style={{color: 'rgba(255, 255, 255, 0.9)'}}>Low (but expensive)</td>
+                        <td className="py-3 px-2" style={{color: 'rgba(255, 255, 255, 0.9)'}}>Legal expertise</td>
                       </tr>
                     </tbody>
                   </table>
