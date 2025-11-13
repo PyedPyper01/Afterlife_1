@@ -1,26 +1,42 @@
 /* Premium Tribute Design - Applied */
 
-/* Global Dark Theme */
-body {
-  margin: 0;
-  padding: 0;
+/* Global Dark Theme - Aggressive Override */
+html, body, #root {
+  margin: 0 !important;
+  padding: 0 !important;
   background: #1a1a1a !important;
+  background-color: #1a1a1a !important;
   color: #ffffff !important;
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif !important;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
   line-height: 1.6;
+  min-height: 100vh !important;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: #1a1a1a;
+  z-index: -1;
 }
 
 * {
   box-sizing: border-box;
-  margin: 0;
-  padding: 0;
+}
+
+/* Override all containers */
+div, section, main, article {
+  background-color: transparent !important;
 }
 
 /* Override all text colors to white */
-h1, h2, h3, h4, h5, h6, p, span, div, label, a, li {
+h1, h2, h3, h4, h5, h6, p, span, div, label, a, li, button {
   color: #ffffff !important;
 }
 
