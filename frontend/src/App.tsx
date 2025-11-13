@@ -305,9 +305,11 @@ const WelcomeScreen = ({ voiceEnabled, isListening, setIsListening, setCurrentSt
           </CardContent>
         </Card>
       </FloatingCard>
-    </section>
+    </div>
+  </div>
+)
 
-    {/* What We Offer Section */}
+interface AboutScreenProps {
     <section className="px-6 py-16 max-w-6xl mx-auto">
       <div className="text-center mb-12">
         <h2 style={{fontSize: '48px', fontWeight: '800', color: '#ffffff', marginBottom: '16px'}}>What We Offer</h2>
