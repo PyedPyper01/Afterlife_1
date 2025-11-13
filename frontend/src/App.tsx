@@ -590,7 +590,7 @@ const ContactScreen = ({ setCurrentStep }: ContactScreenProps) => {
                   
                   <div style={{marginTop: '24px', padding: '16px', background: 'rgba(135, 206, 235, 0.1)', borderRadius: '8px'}}>
                     <p style={{color: 'rgba(255, 255, 255, 0.9)', fontSize: '14px'}}>
-                      For urgent matters outside office hours, please use our AI Assistant or call our 24/7 crisis support line.
+                      Our phones are manned 24 hours a day so do not hesitate to call us if you need assistance.
                     </p>
                   </div>
                 </CardContent>
