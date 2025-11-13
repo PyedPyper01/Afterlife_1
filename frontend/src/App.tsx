@@ -82,7 +82,7 @@ const WelcomeScreen = ({ voiceEnabled, isListening, setIsListening, setCurrentSt
         }} onMouseEnter={(e) => e.currentTarget.style.color = '#87CEEB'} onMouseLeave={(e) => e.currentTarget.style.color = '#ffffff'}>
           Home
         </button>
-        <button onClick={() => setCurrentStep('welcome')} style={{
+        <button onClick={() => setCurrentStep('about')} style={{
           color: '#ffffff',
           fontSize: '14px',
           fontWeight: '600',
