@@ -241,8 +241,15 @@ const WelcomeScreen = ({ voiceEnabled, isListening, setIsListening, setCurrentSt
         </div>
     </section>
 
-    {/* AI-Powered Guidance & Concierge Sections */}
-    <section className="grid md:grid-cols-2 gap-8 px-6 py-12 max-w-6xl mx-auto">
+    {/* Quick Links Section - Home Page Only */}
+    <section className="px-6 py-16 max-w-4xl mx-auto text-center">
+      <p style={{fontSize: '18px', color: 'rgba(255, 255, 255, 0.8)', marginBottom: '32px'}}>
+        Need more information? Visit our <button onClick={() => setCurrentStep('about')} style={{color: '#87CEEB', textDecoration: 'underline', background: 'none', border: 'none', cursor: 'pointer', fontSize: '18px', fontWeight: '600'}}>About page</button> to learn about all our services.
+      </p>
+    </section>
+
+    {/* OLD CONTENT REMOVED - Now only on About page */}
+    <section style={{display: 'none'}} className="grid md:grid-cols-2 gap-8 px-6 py-12 max-w-6xl mx-auto">
       <FloatingCard delay={0}>
         <Card className="premium-card">
           <CardHeader>
