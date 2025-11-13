@@ -45,7 +45,6 @@ async def chat(request: ChatRequest):
     try:
         jurisdiction = request.context.get("answers", {}).get("jurisdiction", "england-wales") if request.context else "england-wales"
         religion = request.context.get("answers", {}).get("religion", "") if request.context else ""
-        
         postcode = request.context.get("answers", {}).get("postcode", "") if request.context else ""
         
         system_prompt = f"""You are a compassionate AI assistant for the AfterLife bereavement support platform. Your role is to provide accurate, empathetic guidance on the UK bereavement process.
@@ -80,22 +79,18 @@ JURISDICTION-SPECIFIC NOTES:
 
 Provide helpful, accurate guidance based on this context."""
 
-        messages = [{"role": "system", "content": system_prompt}]
+        # Initialize LlmChat with emergentintegrations
+        chat_client = LlmChat(
+            api_key=os.getenv("EMERGENT_LLM_KEY"),
+            session_id=str(uuid.uuid4()),
+            system_message=system_prompt
+        ).with_model("openai", "gpt-4o-mini")
         
-        if request.history:
-            for msg in request.history[-10:]:  # Last 10 messages for context
-                messages.append({"role": msg.role, "content": msg.content})
+        # Create user message
+        user_message = UserMessage(text=request.message)
         
-        messages.append({"role": "user", "content": request.message})
-        
-        completion = openai_client.chat.completions.create(
-            model="gpt-4o-mini",
-            messages=messages,
-            temperature=0.7,
-            max_tokens=500
-        )
-        
-        response_text = completion.choices[0].message.content
+        # Send message and get response
+        response_text = await chat_client.send_message(user_message)
         
         return ChatResponse(
             response=response_text,
