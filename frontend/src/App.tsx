@@ -1024,6 +1024,7 @@ function App() {
           />
         )}
         {currentStep === 'about' && <AboutScreen setCurrentStep={setCurrentStep} />}
+        {currentStep === 'contact' && <ContactScreen setCurrentStep={setCurrentStep} />}
         {currentStep === 'triage' && (
           <TriageWizard
             onComplete={handleTriageComplete}
