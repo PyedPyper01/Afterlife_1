@@ -129,35 +129,65 @@ const WelcomeScreen = ({ voiceEnabled, isListening, setIsListening, setCurrentSt
         </FloatingCard>
 
         <div className="flex flex-col sm:flex-row gap-5 justify-center mb-8">
-          <Button 
-            size="lg" 
-            className={cn('text-lg px-10 py-7 shadow-lg hover:shadow-xl font-semibold', theme.button.primary, theme.transition.default, 'motion-safe:hover:scale-105')} 
+          <button 
+            className="premium-button"
             onClick={() => setCurrentStep('triage')}
           >
-            Start Guided Journey
-          </Button>
-          <Button 
-            size="lg" 
-            variant="outline" 
-            className={cn('text-lg px-10 py-7 shadow-md hover:shadow-lg font-semibold', theme.button.outline, theme.transition.default, 'motion-safe:hover:scale-105')} 
+            Start Your Journey
+          </button>
+          <button 
+            className="premium-button" 
+            style={{background: 'transparent', border: '1px solid rgba(255, 255, 255, 0.3)'}}
             onClick={() => setCurrentStep('chat')}
           >
-            Chat with AI Assistant
-          </Button>
+            Talk to AI Guide
+          </button>
         </div>
+    </section>
 
-        <div className="text-center">
-          <Button 
-            variant="ghost" 
-            className={cn(theme.button.ghost, theme.transition.default)} 
-            onClick={() => setVoiceEnabled(!voiceEnabled)}
-          >
-            {voiceEnabled ? <MicOff className="w-4 h-4 mr-2" /> : <Mic className="w-4 h-4 mr-2" />}
-            {voiceEnabled ? 'Disable' : 'Enable'} Voice Control
-          </Button>
-        </div>
-      </div>
-    </div>
+    <section className="grid md:grid-cols-3 gap-6 px-6 py-12 max-w-6xl mx-auto">
+      <FloatingCard delay={0}>
+        <Card className="premium-card cursor-pointer" onClick={() => setCurrentStep('triage')}>
+          <CardHeader className="pb-4">
+            <div className="w-14 h-14 rounded-full flex items-center justify-center mb-4" style={{background: 'linear-gradient(135deg, #87CEEB, #4682B4)'}}>
+              <MessageCircle className="w-7 h-7 text-white" />
+            </div>
+            <CardTitle className="text-xl">AI Guidance</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <p style={{color: 'rgba(255, 255, 255, 0.7)'}}>24/7 intelligent assistant with voice control</p>
+          </CardContent>
+        </Card>
+      </FloatingCard>
+
+      <FloatingCard delay={100}>
+        <Card className="premium-card cursor-pointer" onClick={() => setCurrentStep('marketplace')}>
+          <CardHeader className="pb-4">
+            <div className="w-14 h-14 rounded-full flex items-center justify-center mb-4" style={{background: 'linear-gradient(135deg, #87CEEB, #4682B4)'}}>
+              <ShoppingCart className="w-7 h-7 text-white" />
+            </div>
+            <CardTitle className="text-xl">Marketplace</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <p style={{color: 'rgba(255, 255, 255, 0.7)'}}>Find verified funeral directors, florists, and more</p>
+          </CardContent>
+        </Card>
+      </FloatingCard>
+
+      <FloatingCard delay={200}>
+        <Card className="premium-card cursor-pointer" onClick={() => setCurrentStep('memorial')}>
+          <CardHeader className="pb-4">
+            <div className="w-14 h-14 rounded-full flex items-center justify-center mb-4" style={{background: 'linear-gradient(135deg, #87CEEB, #4682B4)'}}>
+              <Heart className="w-7 h-7 text-white" />
+            </div>
+            <CardTitle className="text-xl">Memorial Pages</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <p style={{color: 'rgba(255, 255, 255, 0.7)'}}>Create free, permanent tribute pages</p>
+          </CardContent>
+        </Card>
+      </FloatingCard>
+    </section>
   </div>
 )
 
