@@ -19,7 +19,7 @@ import { ChecklistScreen } from './components/ChecklistScreen.tsx'
 import { ConciergeScreen } from './components/ConciergeScreen.tsx'
 import { theme, cn } from './theme.ts'
 
-type Step = 'welcome' | 'triage' | 'guidance' | 'marketplace' | 'memorial' | 'documents' | 'chat' | 'concierge' | 'checklist' | 'about'
+type Step = 'welcome' | 'triage' | 'guidance' | 'marketplace' | 'memorial' | 'documents' | 'chat' | 'concierge' | 'checklist' | 'about' | 'contact'
 type DeathLocation = 'home-expected' | 'home-unexpected' | 'hospital' | 'care-home' | 'abroad' | 'crime-scene' | ''
 type Jurisdiction = 'england-wales' | 'scotland' | 'northern-ireland' | ''
 type Religion = 'islam' | 'judaism' | 'hindu' | 'sikh' | 'christian' | 'catholic' | 'none' | ''
