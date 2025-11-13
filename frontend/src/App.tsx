@@ -460,8 +460,9 @@ const AboutScreen = ({ setCurrentStep }: AboutScreenProps) => {
                       letterSpacing: '1px',
                       textTransform: 'uppercase'
                     }}
+                    className="hover:bg-blue-50"
                   >
-                    Learn More
+                    <span style={{color: '#4682B4'}}>Learn More</span>
                   </Button>
                 </CardContent>
               </Card>
