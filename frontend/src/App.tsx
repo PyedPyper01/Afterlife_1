@@ -548,64 +548,74 @@ function App() {
   }
 
   return (
-    <div className="min-h-screen">
-      {currentStep === 'welcome' && (
-        <WelcomeScreen
-          voiceEnabled={voiceEnabled}
-          isListening={isListening}
-          setIsListening={setIsListening}
-          setCurrentStep={setCurrentStep}
-          setVoiceEnabled={setVoiceEnabled}
-        />
-      )}
-      {currentStep === 'triage' && (
-        <TriageWizard
-          onComplete={handleTriageComplete}
-          onBack={() => setCurrentStep('welcome')}
-        />
-      )}
-      {currentStep === 'guidance' && (
-        <GuidanceScreen
-          triageData={triageData}
-          setCurrentStep={setCurrentStep}
-        />
-      )}
-      {currentStep === 'marketplace' && <MarketplaceScreen setCurrentStep={setCurrentStep} userPostcode={triageData.postcode} />}
-      {currentStep === 'memorial' && <MemorialScreen setCurrentStep={setCurrentStep} />}
-      {currentStep === 'documents' && <DocumentVaultScreen setCurrentStep={setCurrentStep} />}
-      {currentStep === 'chat' && <ChatScreen setCurrentStep={setCurrentStep} context={{ answers: triageData }} />}
-      {currentStep === 'checklist' && <ChecklistScreen setCurrentStep={setCurrentStep} />}
-      {currentStep === 'concierge' && <ConciergeScreen setCurrentStep={setCurrentStep} />}
-
-      {/* Docked AI Assistant - always available */}
-      <DockedAIAssistant 
-        context={{
-          currentStep,
-          answers: triageData,
-          currentQuestion: currentStep === 'triage' ? 'triage' : undefined
-        }}
-      />
-
-      {/* Fixed action buttons */}
-      <div className="fixed bottom-4 left-4 z-40 flex flex-col gap-2">
-        <Button 
-          size="lg" 
-          className={cn('rounded-full shadow-lg bg-red-600 hover:bg-red-700', theme.transition.default)}
-          onClick={() => window.open('https://www.cruse.org.uk', '_blank')}
-        >
-          <Phone className="w-5 h-5 mr-2" />
-          Crisis Support
-        </Button>
-        <Button
-          size="lg"
-          variant="outline"
-          className={cn('rounded-full shadow-lg bg-white', theme.transition.default)}
-          onClick={() => setCurrentStep('documents')}
-        >
-          <FileText className="w-5 h-5 mr-2" />
-          Documents
-        </Button>
+    <div className="app-container">
+      {/* Animated Background with Video */}
+      <div className="animated-bg">
+        <video autoPlay loop muted playsInline className="bg-video bg-video-home">
+          <source src="https://customer-assets.emergentagent.com/job_griefguide-2/artifacts/5dlp98o6_4158435-hd_1280_720_30fps.mp4" type="video/mp4" />
+        </video>
       </div>
+
+      {/* Main Content */}
+      <main className="main-content">
+        {currentStep === 'welcome' && (
+          <WelcomeScreen
+            voiceEnabled={voiceEnabled}
+            isListening={isListening}
+            setIsListening={setIsListening}
+            setCurrentStep={setCurrentStep}
+            setVoiceEnabled={setVoiceEnabled}
+          />
+        )}
+        {currentStep === 'triage' && (
+          <TriageWizard
+            onComplete={handleTriageComplete}
+            onBack={() => setCurrentStep('welcome')}
+          />
+        )}
+        {currentStep === 'guidance' && (
+          <GuidanceScreen
+            triageData={triageData}
+            setCurrentStep={setCurrentStep}
+          />
+        )}
+        {currentStep === 'marketplace' && <MarketplaceScreen setCurrentStep={setCurrentStep} userPostcode={triageData.postcode} />}
+        {currentStep === 'memorial' && <MemorialScreen setCurrentStep={setCurrentStep} />}
+        {currentStep === 'documents' && <DocumentVaultScreen setCurrentStep={setCurrentStep} />}
+        {currentStep === 'chat' && <ChatScreen setCurrentStep={setCurrentStep} context={{ answers: triageData }} />}
+        {currentStep === 'checklist' && <ChecklistScreen setCurrentStep={setCurrentStep} />}
+        {currentStep === 'concierge' && <ConciergeScreen setCurrentStep={setCurrentStep} />}
+
+        {/* Docked AI Assistant - always available */}
+        <DockedAIAssistant 
+          context={{
+            currentStep,
+            answers: triageData,
+            currentQuestion: currentStep === 'triage' ? 'triage' : undefined
+          }}
+        />
+
+        {/* Fixed action buttons */}
+        <div className="fixed bottom-4 left-4 z-40 flex flex-col gap-2">
+          <Button 
+            size="lg" 
+            className={cn('rounded-full shadow-lg bg-red-600 hover:bg-red-700', theme.transition.default)}
+            onClick={() => window.open('https://www.cruse.org.uk', '_blank')}
+          >
+            <Phone className="w-5 h-5 mr-2" />
+            Crisis Support
+          </Button>
+          <Button
+            size="lg"
+            variant="outline"
+            className={cn('rounded-full shadow-lg bg-white', theme.transition.default)}
+            onClick={() => setCurrentStep('documents')}
+          >
+            <FileText className="w-5 h-5 mr-2" />
+            Documents
+          </Button>
+        </div>
+      </main>
     </div>
   )
 }
