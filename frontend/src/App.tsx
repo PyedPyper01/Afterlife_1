@@ -241,48 +241,145 @@ const WelcomeScreen = ({ voiceEnabled, isListening, setIsListening, setCurrentSt
         </div>
     </section>
 
-    <section className="grid md:grid-cols-3 gap-6 px-6 py-12 max-w-6xl mx-auto">
+    {/* AI-Powered Guidance & Concierge Sections */}
+    <section className="grid md:grid-cols-2 gap-8 px-6 py-12 max-w-6xl mx-auto">
       <FloatingCard delay={0}>
-        <Card className="premium-card cursor-pointer" onClick={() => setCurrentStep('triage')}>
-          <CardHeader className="pb-4">
-            <div className="w-14 h-14 rounded-full flex items-center justify-center mb-4" style={{background: 'linear-gradient(135deg, #87CEEB, #4682B4)'}}>
-              <MessageCircle className="w-7 h-7 text-white" />
-            </div>
-            <CardTitle className="text-xl">AI Guidance</CardTitle>
+        <Card className="premium-card">
+          <CardHeader>
+            <CardTitle className="text-2xl">AI-Powered Guidance</CardTitle>
           </CardHeader>
           <CardContent>
-            <p className="card-description">24/7 intelligent assistant with voice control</p>
+            <p className="card-description mb-4">Our intelligent guide is available 24/7 to answer your questions, walk you through procedures, and provide step-by-step support through every stage of your journey.</p>
+            <p className="card-description font-semibold mb-4">Completely free. Always available.</p>
+            <Button 
+              onClick={() => setCurrentStep('chat')}
+              style={{
+                background: 'linear-gradient(135deg, #87CEEB, #4682B4)',
+                color: '#ffffff',
+                padding: '12px 32px',
+                fontSize: '14px',
+                fontWeight: '700',
+                letterSpacing: '1px',
+                textTransform: 'uppercase'
+              }}
+            >
+              Talk to AI Guide
+            </Button>
           </CardContent>
         </Card>
       </FloatingCard>
 
       <FloatingCard delay={100}>
-        <Card className="premium-card cursor-pointer" onClick={() => setCurrentStep('marketplace')}>
-          <CardHeader className="pb-4">
-            <div className="w-14 h-14 rounded-full flex items-center justify-center mb-4" style={{background: 'linear-gradient(135deg, #87CEEB, #4682B4)'}}>
-              <ShoppingCart className="w-7 h-7 text-white" />
-            </div>
-            <CardTitle className="text-xl">Marketplace</CardTitle>
+        <Card className="premium-card">
+          <CardHeader>
+            <CardTitle className="text-2xl">Concierge Service</CardTitle>
           </CardHeader>
           <CardContent>
-            <p className="card-description">Find verified funeral directors, florists, and more</p>
+            <p className="card-description mb-4">When grief makes even simple decisions feel impossible, our compassionate team handles everything. Phone calls, paperwork, coordination—we take care of it all.</p>
+            <p className="card-description font-bold text-2xl mb-2" style={{color: '#87CEEB'}}>£1,000</p>
+            <p className="card-description mb-4">Fixed fee. Often repaid through our savings. Complete peace of mind.</p>
+            <Button 
+              onClick={() => setCurrentStep('concierge')}
+              style={{
+                background: 'transparent',
+                color: '#4682B4',
+                border: '2px solid #4682B4',
+                padding: '12px 32px',
+                fontSize: '14px',
+                fontWeight: '700',
+                letterSpacing: '1px',
+                textTransform: 'uppercase'
+              }}
+            >
+              Learn More
+            </Button>
           </CardContent>
         </Card>
       </FloatingCard>
+    </section>
 
-      <FloatingCard delay={200}>
-        <Card className="premium-card cursor-pointer" onClick={() => setCurrentStep('memorial')}>
-          <CardHeader className="pb-4">
-            <div className="w-14 h-14 rounded-full flex items-center justify-center mb-4" style={{background: 'linear-gradient(135deg, #87CEEB, #4682B4)'}}>
-              <Heart className="w-7 h-7 text-white" />
-            </div>
-            <CardTitle className="text-xl">Memorial Pages</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <p className="card-description">Create free, permanent tribute pages</p>
-          </CardContent>
-        </Card>
-      </FloatingCard>
+    {/* What We Offer Section */}
+    <section className="px-6 py-16 max-w-6xl mx-auto">
+      <div className="text-center mb-12">
+        <h2 style={{fontSize: '48px', fontWeight: '800', color: '#ffffff', marginBottom: '16px'}}>What We Offer</h2>
+        <p style={{fontSize: '18px', color: 'rgba(255, 255, 255, 0.9)', maxWidth: '800px', margin: '0 auto'}}>
+          A complete platform designed to support you through every aspect of bereavement—from the first hours after death through estate administration and beyond.
+        </p>
+      </div>
+
+      <div className="grid md:grid-cols-3 gap-6">
+        <FloatingCard delay={0}>
+          <Card className="premium-card">
+            <CardHeader>
+              <div style={{fontSize: '48px', marginBottom: '16px'}}>🤖</div>
+              <CardTitle className="text-xl">Intelligent AI</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p className="card-description">Personalized guidance that adapts to your specific situation, culture, and needs</p>
+            </CardContent>
+          </Card>
+        </FloatingCard>
+
+        <FloatingCard delay={100}>
+          <Card className="premium-card">
+            <CardHeader>
+              <div style={{fontSize: '48px', marginBottom: '16px'}}>🏪</div>
+              <CardTitle className="text-xl">Verified Marketplace</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p className="card-description">Trusted funeral directors, solicitors, and professionals across 570 UK areas</p>
+            </CardContent>
+          </Card>
+        </FloatingCard>
+
+        <FloatingCard delay={200}>
+          <Card className="premium-card">
+            <CardHeader>
+              <div style={{fontSize: '48px', marginBottom: '16px'}}>💐</div>
+              <CardTitle className="text-xl">Memorial Pages</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p className="card-description">Beautiful, free tribute spaces with photos, stories, and charity donations</p>
+            </CardContent>
+          </Card>
+        </FloatingCard>
+
+        <FloatingCard delay={300}>
+          <Card className="premium-card">
+            <CardHeader>
+              <div style={{fontSize: '48px', marginBottom: '16px'}}>🤝</div>
+              <CardTitle className="text-xl">Concierge Support</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p className="card-description">Full-service funeral administration when you need someone to take the lead</p>
+            </CardContent>
+          </Card>
+        </FloatingCard>
+
+        <FloatingCard delay={400}>
+          <Card className="premium-card">
+            <CardHeader>
+              <div style={{fontSize: '48px', marginBottom: '16px'}}>⚖️</div>
+              <CardTitle className="text-xl">Probate Guidance</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p className="card-description">Clear direction through estate administration and inheritance procedures</p>
+            </CardContent>
+          </Card>
+        </FloatingCard>
+
+        <FloatingCard delay={500}>
+          <Card className="premium-card">
+            <CardHeader>
+              <div style={{fontSize: '48px', marginBottom: '16px'}}>🔒</div>
+              <CardTitle className="text-xl">Secure & Private</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p className="card-description">Your data is encrypted and never shared without your explicit permission</p>
+            </CardContent>
+          </Card>
+        </FloatingCard>
+      </div>
     </section>
   </div>
 )
