@@ -119,10 +119,12 @@ h1, h2, h3, h4, h5, h6, p, span, div, label, a, li, button {
   display: block;
 }
 
-/* SOLID CARDS - Like Crisis Support button but reverse colors */
+/* LIGHT TRANSLUCENT GREY CARDS - Glassmorphism */
 .premium-card {
-  background: rgba(255, 255, 255, 0.95) !important;
-  border: 2px solid #87CEEB !important;
+  background: rgba(255, 255, 255, 0.1) !important;
+  backdrop-filter: blur(10px) !important;
+  -webkit-backdrop-filter: blur(10px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
   border-radius: 16px;
   box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -130,22 +132,22 @@ h1, h2, h3, h4, h5, h6, p, span, div, label, a, li, button {
 }
 
 .premium-card:hover {
-  background: #ffffff !important;
-  border: 2px solid #4682B4 !important;
-  box-shadow: 0 12px 40px rgba(135, 206, 235, 0.4);
+  background: rgba(255, 255, 255, 0.15) !important;
+  border: 1px solid rgba(135, 206, 235, 0.4) !important;
+  box-shadow: 0 12px 40px rgba(135, 206, 235, 0.3);
   transform: translateY(-4px);
 }
 
-/* Card text must be DARK for readability on white background */
+/* Card text must be WHITE for visibility on translucent grey */
 .premium-card h3, 
 .premium-card p, 
 .premium-card span,
 .premium-card div {
-  color: #1a1a1a !important;
+  color: #ffffff !important;
 }
 
 .premium-card .text-xl {
-  color: #4682B4 !important;
+  color: #87CEEB !important;
   font-weight: 700;
 }
 
