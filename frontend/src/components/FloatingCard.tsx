@@ -1,3 +1,4 @@
+import { ReactNode, useEffect, useRef, useState } from 'react'
 import { cn } from '../theme.ts'
 
 interface FloatingCardProps {
