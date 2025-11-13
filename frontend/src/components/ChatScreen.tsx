@@ -68,7 +68,7 @@ export const ChatScreen = ({ setCurrentStep, context }: ChatScreenProps) => {
     const postcode = postcodeMatch ? postcodeMatch[1] : context?.answers?.postcode
     
     try {
-      const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:8000'
+      const apiUrl = process.env.REACT_APP_BACKEND_URL || 'http://localhost:8001'
       const response = await fetch(`${apiUrl}/api/chat`, {
         method: 'POST',
         headers: {
