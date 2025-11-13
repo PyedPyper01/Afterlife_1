@@ -287,6 +287,84 @@ const WelcomeScreen = ({ voiceEnabled, isListening, setIsListening, setCurrentSt
   </div>
 )
 
+interface AboutScreenProps {
+  setCurrentStep: (step: Step) => void
+}
+
+const AboutScreen = ({ setCurrentStep }: AboutScreenProps) => {
+  return (
+    <div className={cn(theme.gradient.page, 'min-h-screen relative overflow-hidden')}>
+      <ParallaxBackground />
+      
+      <div className="container mx-auto px-4 py-8 relative z-10">
+        <div className="max-w-4xl mx-auto">
+          <Button 
+            variant="ghost" 
+            onClick={() => setCurrentStep('welcome')} 
+            className={cn('mb-6', theme.button.ghost, theme.transition.default)}
+          >
+            <Home className="w-4 h-4 mr-2" /> Back to Home
+          </Button>
+          
+          <div className="text-center mb-10">
+            <h1 className={cn('text-5xl font-bold mb-3', theme.gradient.header, 'bg-clip-text text-transparent')}>
+              About AfterLife
+            </h1>
+            <p className={cn('text-xl', theme.text.muted)}>Compassionate support through bereavement</p>
+          </div>
+          
+          <FloatingCard delay={0}>
+            <Card className={cn(theme.card.default, 'border-2 mb-6')}>
+              <CardHeader>
+                <CardTitle className="text-2xl">Our Mission</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className={cn('mb-4', theme.text.secondary)}>
+                  AfterLife transforms the overwhelming journey through bereavement into a clear, supported path forward. 
+                  We combine AI-powered guidance, verified professionals, and human compassion to help you navigate 
+                  every aspect of loss.
+                </p>
+                <p className={cn(theme.text.secondary)}>
+                  From the first hours after a death through probate and beyond, we're here to support you with 
+                  intelligent tools, trusted partners, and compassionate care.
+                </p>
+              </CardContent>
+            </Card>
+          </FloatingCard>
+
+          <FloatingCard delay={100}>
+            <Card className={cn(theme.card.default, 'border-2')}>
+              <CardHeader>
+                <CardTitle className="text-2xl">What We Offer</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <ul className="space-y-3">
+                  <li className={cn('flex items-start', theme.text.secondary)}>
+                    <span className={cn('mr-2', theme.accent.primary)}>✓</span>
+                    <span><strong>24/7 AI Guidance:</strong> Instant answers to your questions, personalized to your situation</span>
+                  </li>
+                  <li className={cn('flex items-start', theme.text.secondary)}>
+                    <span className={cn('mr-2', theme.accent.primary)}>✓</span>
+                    <span><strong>Verified Marketplace:</strong> Trusted funeral directors, solicitors, and professionals across the UK</span>
+                  </li>
+                  <li className={cn('flex items-start', theme.text.secondary)}>
+                    <span className={cn('mr-2', theme.accent.primary)}>✓</span>
+                    <span><strong>Memorial Pages:</strong> Free, permanent tribute spaces to celebrate their life</span>
+                  </li>
+                  <li className={cn('flex items-start', theme.text.secondary)}>
+                    <span className={cn('mr-2', theme.accent.primary)}>✓</span>
+                    <span><strong>Concierge Service:</strong> Full-service support when you need someone to take the lead</span>
+                  </li>
+                </ul>
+              </CardContent>
+            </Card>
+          </FloatingCard>
+        </div>
+      </div>
+    </div>
+  )
+}
+
 interface GuidanceScreenProps {
   triageData: TriageData
   setCurrentStep: (step: Step) => void
