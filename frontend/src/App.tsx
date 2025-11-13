@@ -59,13 +59,14 @@ const WelcomeScreen = ({ voiceEnabled, isListening, setIsListening, setCurrentSt
       backdropFilter: 'blur(10px)',
       WebkitBackdropFilter: 'blur(10px)',
       borderBottom: '1px solid rgba(135, 206, 235, 0.2)',
-      padding: '20px 60px'
+      padding: '15px 20px'
     }}>
       <div style={{
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
-        gap: '40px',
+        flexWrap: 'wrap',
+        gap: '15px',
         maxWidth: '1400px',
         margin: '0 auto'
       }}>
