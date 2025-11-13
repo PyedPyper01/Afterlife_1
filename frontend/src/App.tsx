@@ -945,11 +945,37 @@ function App() {
 
   return (
     <div className="app-container">
-      {/* Animated Background with Video */}
+      {/* Dynamic Background - Different for each page */}
       <div className="animated-bg">
-        <video autoPlay loop muted playsInline className="bg-video bg-video-home">
-          <source src="https://customer-assets.emergentagent.com/job_griefguide-2/artifacts/5dlp98o6_4158435-hd_1280_720_30fps.mp4" type="video/mp4" />
-        </video>
+        {currentStep === 'welcome' && (
+          <video autoPlay loop muted playsInline className="bg-video bg-video-home" style={{opacity: 0.4}}>
+            <source src="https://customer-assets.emergentagent.com/job_griefguide-2/artifacts/5dlp98o6_4158435-hd_1280_720_30fps.mp4" type="video/mp4" />
+          </video>
+        )}
+        {currentStep === 'about' && (
+          <div style={{
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            background: 'linear-gradient(135deg, rgba(26, 26, 26, 0.95) 0%, rgba(70, 130, 180, 0.2) 50%, rgba(26, 26, 26, 0.95) 100%)',
+            zIndex: 0
+          }} />
+        )}
+        {(currentStep === 'triage' || currentStep === 'guidance' || currentStep === 'marketplace' || 
+          currentStep === 'memorial' || currentStep === 'documents' || currentStep === 'chat' || 
+          currentStep === 'checklist' || currentStep === 'concierge') && (
+          <div style={{
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            background: '#1a1a1a',
+            zIndex: 0
+          }} />
+        )}
       </div>
 
       {/* Main Content */}
