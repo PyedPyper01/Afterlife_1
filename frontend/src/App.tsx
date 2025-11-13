@@ -948,7 +948,7 @@ function App() {
       {/* Dynamic Background - Different for each page */}
       <div className="animated-bg">
         {currentStep === 'welcome' && (
-          <video autoPlay loop muted playsInline className="bg-video bg-video-home" style={{opacity: 0.4}}>
+          <video autoPlay loop muted playsInline className="bg-video bg-video-home" style={{opacity: 0.25}}>
             <source src="https://customer-assets.emergentagent.com/job_griefguide-2/artifacts/5dlp98o6_4158435-hd_1280_720_30fps.mp4" type="video/mp4" />
           </video>
         )}
