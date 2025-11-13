@@ -724,7 +724,12 @@ function App() {
         <div className="fixed bottom-4 left-4 z-40 flex flex-col gap-2">
           <Button 
             size="lg" 
-            className={cn('rounded-full shadow-lg bg-red-600 hover:bg-red-700', theme.transition.default)}
+            className="rounded-full shadow-lg"
+            style={{
+              background: '#dc2626',
+              color: '#ffffff',
+              fontWeight: '600'
+            }}
             onClick={() => window.open('https://www.cruse.org.uk', '_blank')}
           >
             <Phone className="w-5 h-5 mr-2" />
@@ -733,7 +738,13 @@ function App() {
           <Button
             size="lg"
             variant="outline"
-            className={cn('rounded-full shadow-lg bg-white', theme.transition.default)}
+            className="rounded-full shadow-lg"
+            style={{
+              background: 'rgba(255, 255, 255, 0.95)',
+              color: '#1a1a1a',
+              border: '2px solid #87CEEB',
+              fontWeight: '600'
+            }}
             onClick={() => setCurrentStep('documents')}
           >
             <FileText className="w-5 h-5 mr-2" />
