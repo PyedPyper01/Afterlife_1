@@ -183,8 +183,8 @@ h1, h2, h3, h4, h5, h6, p, span, div, label, a, li, button {
   background: transparent !important;
 }
 
-/* Fix all button text visibility */
-button, .btn, .premium-button, [role="button"] {
+/* Fix all button text visibility - except white background buttons */
+button:not([style*="rgba(255, 255, 255"]), .btn, .premium-button, [role="button"] {
   color: #ffffff !important;
 }
 
