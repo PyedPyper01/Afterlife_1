@@ -282,7 +282,7 @@ const WelcomeScreen = ({ voiceEnabled, isListening, setIsListening, setCurrentSt
               onClick={() => setCurrentStep('concierge')}
               style={{
                 background: 'transparent',
-                color: '#4682B4',
+                color: '#4682B4 !important',
                 border: '2px solid #4682B4',
                 padding: '12px 32px',
                 fontSize: '14px',
@@ -290,8 +290,9 @@ const WelcomeScreen = ({ voiceEnabled, isListening, setIsListening, setCurrentSt
                 letterSpacing: '1px',
                 textTransform: 'uppercase'
               }}
+              className="hover:bg-blue-50"
             >
-              Learn More
+              <span style={{color: '#4682B4'}}>Learn More</span>
             </Button>
           </CardContent>
         </Card>
