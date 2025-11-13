@@ -959,21 +959,21 @@ function App() {
             <Phone className="w-5 h-5 mr-2" />
             Crisis Support
           </Button>
-          <Button
-            size="lg"
-            variant="outline"
-            className="rounded-full shadow-lg"
+          <button
+            className="rounded-full shadow-lg px-6 py-3 flex items-center gap-2"
             style={{
               background: 'rgba(255, 255, 255, 0.95)',
-              color: '#1a1a1a !important',
+              color: '#1a1a1a',
               border: '2px solid #87CEEB',
-              fontWeight: '600'
+              fontWeight: '600',
+              fontSize: '16px',
+              cursor: 'pointer'
             }}
             onClick={() => setCurrentStep('documents')}
           >
-            <FileText className="w-5 h-5 mr-2" style={{color: '#1a1a1a'}} />
+            <FileText className="w-5 h-5" style={{color: '#1a1a1a', stroke: '#1a1a1a'}} />
             <span style={{color: '#1a1a1a'}}>Documents</span>
-          </Button>
+          </button>
         </div>
       </main>
     </div>
