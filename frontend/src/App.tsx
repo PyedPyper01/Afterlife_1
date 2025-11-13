@@ -482,6 +482,114 @@ const AboutScreen = ({ setCurrentStep }: AboutScreenProps) => {
   )
 }
 
+interface ContactScreenProps {
+  setCurrentStep: (step: Step) => void
+}
+
+const ContactScreen = ({ setCurrentStep }: ContactScreenProps) => {
+  return (
+    <div style={{background: '#1a1a1a', minHeight: '100vh', paddingTop: '100px'}}>
+      <div className="container mx-auto px-6 py-12">
+        <div className="max-w-6xl mx-auto">
+          <Button 
+            variant="ghost" 
+            onClick={() => setCurrentStep('welcome')} 
+            style={{marginBottom: '24px', color: '#ffffff'}}
+          >
+            <Home className="w-4 h-4 mr-2" /> Back to Home
+          </Button>
+          
+          <div className="text-center mb-16">
+            <h1 style={{fontSize: '64px', fontWeight: '800', color: '#ffffff', marginBottom: '24px'}}>
+              Contact Us
+            </h1>
+            <p style={{fontSize: '24px', color: 'rgba(255, 255, 255, 0.9)', maxWidth: '800px', margin: '0 auto'}}>
+              Get in touch with our compassionate team
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-8 mb-16">
+            <FloatingCard delay={0}>
+              <Card className="premium-card">
+                <CardHeader>
+                  <CardTitle className="text-2xl">Contact Information</CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-6">
+                  <div>
+                    <h3 style={{fontSize: '18px', fontWeight: '600', color: '#87CEEB', marginBottom: '8px'}}>Email</h3>
+                    <a href="mailto:info@afterlife.ltd" style={{color: 'rgba(255, 255, 255, 0.9)', fontSize: '16px'}}>
+                      info@afterlife.ltd
+                    </a>
+                  </div>
+                  
+                  <div>
+                    <h3 style={{fontSize: '18px', fontWeight: '600', color: '#87CEEB', marginBottom: '8px'}}>Phone</h3>
+                    <a href="tel:02035763018" style={{color: 'rgba(255, 255, 255, 0.9)', fontSize: '16px'}}>
+                      0203 576 3018
+                    </a>
+                  </div>
+                  
+                  <div>
+                    <h3 style={{fontSize: '18px', fontWeight: '600', color: '#87CEEB', marginBottom: '8px'}}>Website</h3>
+                    <a href="https://www.afterlife.ltd" target="_blank" rel="noopener noreferrer" style={{color: 'rgba(255, 255, 255, 0.9)', fontSize: '16px'}}>
+                      www.afterlife.ltd
+                    </a>
+                  </div>
+                  
+                  <div>
+                    <h3 style={{fontSize: '18px', fontWeight: '600', color: '#87CEEB', marginBottom: '8px'}}>Address</h3>
+                    <p style={{color: 'rgba(255, 255, 255, 0.9)', fontSize: '16px', lineHeight: '1.8'}}>
+                      1 Canada Square<br/>
+                      Canary Wharf<br/>
+                      London E14 5AA
+                    </p>
+                  </div>
+                </CardContent>
+              </Card>
+            </FloatingCard>
+
+            <FloatingCard delay={100}>
+              <Card className="premium-card">
+                <CardHeader>
+                  <CardTitle className="text-2xl">Office Hours</CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <div>
+                    <p style={{color: 'rgba(255, 255, 255, 0.9)', fontSize: '16px', lineHeight: '1.8'}}>
+                      <strong style={{color: '#87CEEB'}}>Monday - Friday:</strong><br/>
+                      9:00 AM - 6:00 PM
+                    </p>
+                  </div>
+                  
+                  <div>
+                    <p style={{color: 'rgba(255, 255, 255, 0.9)', fontSize: '16px', lineHeight: '1.8'}}>
+                      <strong style={{color: '#87CEEB'}}>Saturday:</strong><br/>
+                      10:00 AM - 4:00 PM
+                    </p>
+                  </div>
+                  
+                  <div>
+                    <p style={{color: 'rgba(255, 255, 255, 0.9)', fontSize: '16px', lineHeight: '1.8'}}>
+                      <strong style={{color: '#87CEEB'}}>Sunday:</strong><br/>
+                      Closed
+                    </p>
+                  </div>
+                  
+                  <div style={{marginTop: '24px', padding: '16px', background: 'rgba(135, 206, 235, 0.1)', borderRadius: '8px'}}>
+                    <p style={{color: 'rgba(255, 255, 255, 0.9)', fontSize: '14px'}}>
+                      For urgent matters outside office hours, please use our AI Assistant or call our 24/7 crisis support line.
+                    </p>
+                  </div>
+                </CardContent>
+              </Card>
+            </FloatingCard>
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
 interface GuidanceScreenProps {
   triageData: TriageData
   setCurrentStep: (step: Step) => void
