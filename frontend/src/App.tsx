@@ -242,14 +242,15 @@ const WelcomeScreen = ({ voiceEnabled, isListening, setIsListening, setCurrentSt
     </section>
 
     {/* Quick Links Section - Home Page Only */}
-    <section className="px-6 py-16 max-w-4xl mx-auto text-center">
-      <p style={{fontSize: '18px', color: 'rgba(255, 255, 255, 0.8)', marginBottom: '32px'}}>
-        Need more information? Visit our <button onClick={() => setCurrentStep('about')} style={{color: '#87CEEB', textDecoration: 'underline', background: 'none', border: 'none', cursor: 'pointer', fontSize: '18px', fontWeight: '600'}}>About page</button> to learn about all our services.
+    <section className="px-6 py-16 max-w-4xl mx-auto text-center" style={{paddingBottom: '100px'}}>
+      <p style={{fontSize: '20px', color: 'rgba(255, 255, 255, 0.8)', marginBottom: '32px', lineHeight: '1.8'}}>
+        Need more information about our services?<br/>
+        <button onClick={() => setCurrentStep('about')} style={{color: '#87CEEB', textDecoration: 'underline', background: 'none', border: 'none', cursor: 'pointer', fontSize: '20px', fontWeight: '600', marginTop: '8px'}}>Visit our About page →</button>
       </p>
     </section>
 
-    {/* OLD CONTENT REMOVED - Now only on About page */}
-    <section style={{display: 'none'}} className="grid md:grid-cols-2 gap-8 px-6 py-12 max-w-6xl mx-auto">
+    {/* OLD DUPLICATE CONTENT REMOVED */}
+    <div style={{display: 'none'}}>
       <FloatingCard delay={0}>
         <Card className="premium-card">
           <CardHeader>
