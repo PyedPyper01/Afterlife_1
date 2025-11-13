@@ -147,6 +147,19 @@ const WelcomeScreen = ({ voiceEnabled, isListening, setIsListening, setCurrentSt
         }} onMouseEnter={(e) => e.currentTarget.style.color = '#87CEEB'} onMouseLeave={(e) => e.currentTarget.style.color = '#ffffff'}>
           Concierge
         </button>
+        <button onClick={() => setCurrentStep('contact')} style={{
+          color: '#ffffff',
+          fontSize: '14px',
+          fontWeight: '600',
+          letterSpacing: '1px',
+          textTransform: 'uppercase',
+          background: 'none',
+          border: 'none',
+          cursor: 'pointer',
+          transition: 'color 0.3s ease'
+        }} onMouseEnter={(e) => e.currentTarget.style.color = '#87CEEB'} onMouseLeave={(e) => e.currentTarget.style.color = '#ffffff'}>
+          Contact
+        </button>
       </div>
     </nav>
 
