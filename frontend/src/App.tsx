@@ -221,7 +221,8 @@ const WelcomeScreen = ({ voiceEnabled, isListening, setIsListening, setCurrentSt
               textTransform: 'uppercase',
               borderRadius: '0',
               cursor: 'pointer',
-              transition: 'all 0.8s cubic-bezier(0.4, 0, 0.2, 1)'
+              transition: 'all 0.8s cubic-bezier(0.4, 0, 0.2, 1)',
+              textShadow: '0 2px 4px rgba(0, 0, 0, 0.5)'
             }}
             onClick={() => setCurrentStep('chat')}
             onMouseEnter={(e) => {
@@ -235,7 +236,7 @@ const WelcomeScreen = ({ voiceEnabled, isListening, setIsListening, setCurrentSt
               e.currentTarget.style.transform = 'translateY(0)'
             }}
           >
-            Talk to AI Guide
+            TALK TO AI GUIDE
           </button>
         </div>
     </section>
