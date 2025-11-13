@@ -934,7 +934,7 @@ const GlobalNav = ({ currentStep, setCurrentStep }: GlobalNavProps) => {
   const [isOpen, setIsOpen] = useState(false)
   
   return (
-    <div style={{
+    <div className="GlobalNav" style={{
       position: 'fixed',
       top: '20px',
       right: '20px',
