@@ -1118,6 +1118,9 @@ function App() {
         )}
       </div>
 
+      {/* Global Navigation Dropdown */}
+      <GlobalNav currentStep={currentStep} setCurrentStep={setCurrentStep} />
+
       {/* Main Content */}
       <main className="main-content">
         {currentStep === 'welcome' && (
