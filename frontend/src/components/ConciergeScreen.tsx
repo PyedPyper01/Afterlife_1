@@ -239,7 +239,7 @@ export const ConciergeScreen = ({ setCurrentStep }: ConciergeScreenProps) => {
                         <td className="py-3 px-2" style={{color: 'rgba(255, 255, 255, 0.9)'}}>40-80 hours</td>
                         <td className="py-3 px-2" style={{color: 'rgba(255, 255, 255, 0.9)'}}>High risk of errors</td>
                       </tr>
-                      <tr className="border-b border-slate-100 bg-indigo-50">
+                      <tr className="border-b border-slate-100" style={{backgroundColor: 'rgba(135, 206, 235, 0.2)'}}>
                         <td className="py-3 px-2 font-semibold" style={{color: '#ffffff'}}>AfterLife Concierge</td>
                         <td className="py-3 px-2" style={{color: 'rgba(255, 255, 255, 0.9)'}}>£1,000 + 1-3%</td>
                         <td className="py-3 px-2" style={{color: 'rgba(255, 255, 255, 0.9)'}}>Minimal (we handle it)</td>
