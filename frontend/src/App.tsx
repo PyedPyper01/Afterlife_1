@@ -65,14 +65,15 @@ const WelcomeScreen = ({ voiceEnabled, isListening, setIsListening, setCurrentSt
           </div>
         )}
         
-        <div className="text-center mb-16 pt-12">
-          <Heart className={cn('w-20 h-20 mx-auto mb-6', theme.accent.primary)} />
-          <h1 className={cn('text-7xl font-bold mb-6', theme.gradient.header, 'bg-clip-text text-transparent')}>
-            AfterLife
-          </h1>
-          <p className={cn('text-2xl mb-3 font-medium', theme.text.secondary)}>Compassionate guidance through bereavement</p>
-          <p className={cn('text-xl max-w-2xl mx-auto', theme.text.muted)}>Complete platform with AI guidance, marketplace, and memorial pages</p>
+        <div style={{position: 'relative', height: '300px', display: 'flex', justifyContent: 'center', alignItems: 'center', marginBottom: '40px'}}>
+          <Heart className="mx-auto" style={{height: '300px', width: 'auto', color: '#87CEEB', filter: 'drop-shadow(0px 12px 50px rgba(135, 206, 235, 0.5))'}} />
         </div>
+        <h1 className="hero-title-premium" style={{fontSize: 'clamp(32px, 5vw, 64px)', marginBottom: '20px'}}>
+          Compassionate <span className="accent">Guidance</span> When You Need It Most
+        </h1>
+        <p style={{color: 'rgba(255, 255, 255, 0.9)', fontSize: '18px', lineHeight: '1.6', maxWidth: '800px', margin: '0 auto 48px', textAlign: 'center'}}>
+          AfterLife transforms the overwhelming journey through bereavement into a clear, supported path forward. AI-powered guidance, verified professionals, and human compassion—all in one place.
+        </p>
 
         <div className="grid md:grid-cols-3 gap-6 mb-12">
           <FloatingCard delay={0}>
