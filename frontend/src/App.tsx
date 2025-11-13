@@ -923,6 +923,99 @@ const GuidanceScreen = ({ triageData, setCurrentStep }: GuidanceScreenProps) => 
   )
 }
 
+// Global Navigation Component
+interface GlobalNavProps {
+  currentStep: Step
+  setCurrentStep: (step: Step) => void
+}
+
+const GlobalNav = ({ currentStep, setCurrentStep }: GlobalNavProps) => {
+  const [isOpen, setIsOpen] = useState(false)
+  
+  return (
+    <div style={{
+      position: 'fixed',
+      top: '20px',
+      right: '20px',
+      zIndex: 2000
+    }}>
+      <button
+        onClick={() => setIsOpen(!isOpen)}
+        style={{
+          background: 'rgba(135, 206, 235, 0.9)',
+          color: '#1a1a1a',
+          border: 'none',
+          padding: '12px 24px',
+          borderRadius: '8px',
+          fontSize: '14px',
+          fontWeight: '600',
+          cursor: 'pointer',
+          boxShadow: '0 4px 12px rgba(0, 0, 0, 0.3)',
+          textTransform: 'uppercase',
+          letterSpacing: '1px'
+        }}
+      >
+        Menu ▼
+      </button>
+      
+      {isOpen && (
+        <div style={{
+          position: 'absolute',
+          top: '50px',
+          right: 0,
+          background: 'rgba(26, 26, 26, 0.95)',
+          backdropFilter: 'blur(10px)',
+          borderRadius: '8px',
+          padding: '12px 0',
+          minWidth: '200px',
+          boxShadow: '0 8px 24px rgba(0, 0, 0, 0.4)',
+          border: '1px solid rgba(135, 206, 235, 0.3)'
+        }}>
+          {[
+            { label: 'Home', step: 'welcome' as Step },
+            { label: 'About', step: 'about' as Step },
+            { label: 'AI Guide', step: 'triage' as Step },
+            { label: 'Marketplace', step: 'marketplace' as Step },
+            { label: 'Memorial', step: 'memorial' as Step },
+            { label: 'Concierge', step: 'concierge' as Step },
+            { label: 'Contact', step: 'contact' as Step }
+          ].map((item) => (
+            <button
+              key={item.step}
+              onClick={() => {
+                setCurrentStep(item.step)
+                setIsOpen(false)
+              }}
+              style={{
+                width: '100%',
+                padding: '12px 24px',
+                background: currentStep === item.step ? 'rgba(135, 206, 235, 0.2)' : 'transparent',
+                color: '#ffffff',
+                border: 'none',
+                textAlign: 'left',
+                cursor: 'pointer',
+                fontSize: '14px',
+                fontWeight: currentStep === item.step ? '600' : '400',
+                transition: 'all 0.2s ease'
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.background = 'rgba(135, 206, 235, 0.2)'
+                e.currentTarget.style.color = '#87CEEB'
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.background = currentStep === item.step ? 'rgba(135, 206, 235, 0.2)' : 'transparent'
+                e.currentTarget.style.color = '#ffffff'
+              }}
+            >
+              {item.label}
+            </button>
+          ))}
+        </div>
+      )}
+    </div>
+  )
+}
+
 function App() {
   const [currentStep, setCurrentStep] = useState<Step>('welcome')
   const [triageData, setTriageData] = useState<TriageData>({
