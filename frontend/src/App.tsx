@@ -49,21 +49,18 @@ interface WelcomeScreenProps {
 const WelcomeScreen = ({ voiceEnabled, isListening, setIsListening, setCurrentStep, setVoiceEnabled }: WelcomeScreenProps) => (
   <div className="home-premium">
     <section className="hero-premium" style={{paddingTop: '30px', paddingBottom: '40px'}}>
-    
-    <div className="container mx-auto px-4 py-16 relative z-10">
-      <div className="max-w-6xl mx-auto">
-        {voiceEnabled && (
-          <div className="fixed top-4 right-4 z-50">
-            <Button
-              size="lg"
-              variant={isListening ? 'destructive' : 'default'}
-              className="rounded-full shadow-lg"
-              onClick={() => setIsListening(!isListening)}
-            >
-              {isListening ? <MicOff className="w-5 h-5" /> : <Mic className="w-5 h-5" />}
-            </Button>
-          </div>
-        )}
+      {voiceEnabled && (
+        <div className="fixed top-4 right-4 z-50">
+          <Button
+            size="lg"
+            variant={isListening ? 'destructive' : 'default'}
+            className="rounded-full shadow-lg"
+            onClick={() => setIsListening(!isListening)}
+          >
+            {isListening ? <MicOff className="w-5 h-5" /> : <Mic className="w-5 h-5" />}
+          </Button>
+        </div>
+      )}
         
         <div style={{position: 'relative', height: '300px', display: 'flex', justifyContent: 'center', alignItems: 'center', marginBottom: '40px'}}>
           <Heart className="mx-auto" style={{height: '300px', width: 'auto', color: '#87CEEB', filter: 'drop-shadow(0px 12px 50px rgba(135, 206, 235, 0.5))'}} />
