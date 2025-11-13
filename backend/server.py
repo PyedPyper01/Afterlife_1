@@ -4,7 +4,8 @@ from pydantic import BaseModel
 from typing import Optional, List, Dict, Any
 import os
 from dotenv import load_dotenv
-from openai import OpenAI
+from emergentintegrations.llm.chat import LlmChat, UserMessage
+import uuid
 
 load_dotenv()
 
@@ -18,8 +19,6 @@ app.add_middleware(
     allow_methods=["*"],  # Allows all methods
     allow_headers=["*"],  # Allows all headers
 )
-
-openai_client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
 class ChatMessage(BaseModel):
     role: str
