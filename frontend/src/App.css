@@ -125,3 +125,52 @@ h1, h2, h3, h4, h5, h6, p, span, div, label, a, li, button {
 .fast-transition {
   transition: all 0.3s ease;
 }
+
+/* Override Tailwind gradients with dark theme */
+.bg-gradient-to-br {
+  background: #1a1a1a !important;
+}
+
+[class*="bg-gradient"] {
+  background: #1a1a1a !important;
+}
+
+/* Force dark backgrounds on all major containers */
+.container, main, section, article, .content {
+  background: transparent !important;
+}
+
+/* Override slate colors to dark */
+.bg-slate-50, .bg-slate-100, .bg-stone-50 {
+  background: #1a1a1a !important;
+}
+
+/* Override white backgrounds */
+.bg-white {
+  background: rgba(51, 51, 51, 0.95) !important;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+/* Card styling with glass-morphism */
+[class*="Card"], [class*="card"] {
+  background: linear-gradient(135deg, rgba(135, 206, 235, 0.08), rgba(70, 130, 180, 0.08)) !important;
+  border: 1px solid rgba(135, 206, 235, 0.3) !important;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+/* Sky blue accent for interactive elements */
+.text-indigo-600, .bg-indigo-600 {
+  color: #87CEEB !important;
+  background: #87CEEB !important;
+}
+
+.hover\:bg-indigo-700:hover {
+  background: #4682B4 !important;
+}
+
+/* Button overrides */
+button {
+  color: #ffffff !important;
+}
