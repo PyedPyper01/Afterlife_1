@@ -986,7 +986,7 @@ function App() {
             <source src="https://customer-assets.emergentagent.com/job_griefguide-2/artifacts/5dlp98o6_4158435-hd_1280_720_30fps.mp4" type="video/mp4" />
           </video>
         )}
-        {currentStep === 'about' && (
+        {(currentStep === 'about' || currentStep === 'contact') && (
           <div style={{
             position: 'absolute',
             top: 0,
