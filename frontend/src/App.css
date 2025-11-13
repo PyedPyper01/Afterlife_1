@@ -213,3 +213,87 @@ button[style*="linear-gradient"] {
 .premium-card .w-14 {
   background: linear-gradient(135deg, #87CEEB, #4682B4) !important;
 }
+
+/* Mobile Responsive Styles */
+@media (max-width: 768px) {
+  .hero-premium {
+    padding: 100px 20px 40px !important;
+    min-height: auto !important;
+  }
+
+  .hero-title-premium {
+    font-size: clamp(28px, 8vw, 48px) !important;
+    padding: 20px 24px !important;
+  }
+
+  nav button {
+    font-size: 12px !important;
+    padding: 8px 12px !important;
+  }
+
+  .home-premium nav {
+    padding: 15px 20px !important;
+  }
+
+  .home-premium nav > div {
+    gap: 10px !important;
+    flex-wrap: wrap !important;
+  }
+
+  /* Global Nav Menu positioning on mobile */
+  .GlobalNav {
+    top: 10px !important;
+    right: 10px !important;
+  }
+
+  /* Fix cards on mobile */
+  .premium-card {
+    margin: 10px 0 !important;
+  }
+
+  /* Hero section adjustments */
+  section {
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+  }
+
+  /* Grid adjustments for mobile */
+  .grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* Fixed buttons on mobile */
+  .fixed.bottom-4.left-4 {
+    bottom: 10px !important;
+    left: 10px !important;
+  }
+
+  .fixed.bottom-4.left-4 button {
+    font-size: 12px !important;
+    padding: 10px 16px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-title-premium {
+    font-size: clamp(24px, 8vw, 36px) !important;
+    padding: 16px 20px !important;
+  }
+
+  nav button {
+    font-size: 11px !important;
+    padding: 6px 10px !important;
+  }
+
+  h1 {
+    font-size: 36px !important;
+  }
+
+  h2 {
+    font-size: 28px !important;
+  }
+
+  p {
+    font-size: 14px !important;
+  }
+}
