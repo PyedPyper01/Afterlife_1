@@ -193,7 +193,7 @@ button[style*="linear-gradient"] {
 
 /* Card text styling */
 .card-description {
-  color: #4a4a4a !important;
+  color: rgba(255, 255, 255, 0.9) !important;
   font-size: 14px;
   font-weight: 500;
   line-height: 1.6;
@@ -202,7 +202,7 @@ button[style*="linear-gradient"] {
 .premium-card .text-xl,
 .premium-card h2,
 .premium-card h3 {
-  color: #4682B4 !important;
+  color: #87CEEB !important;
   font-weight: 700;
 }
 
