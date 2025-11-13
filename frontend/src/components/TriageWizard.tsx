@@ -3,7 +3,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Input } from '@/components/ui/input'
 import { Alert, AlertDescription } from '@/components/ui/alert'
 import { Home, ChevronLeft, Clock, HelpCircle } from 'lucide-react'
-import { QUESTIONS, getFirstQuestion, getNextQuestion, type QuestionId } from '../questionConfig'
+import { QUESTIONS, getFirstQuestion, getNextQuestion, type QuestionId } from '../questionConfig.ts'
 import { theme, cn } from '../theme.ts'
 
 interface TriageWizardProps {
