@@ -390,72 +390,166 @@ interface AboutScreenProps {
 
 const AboutScreen = ({ setCurrentStep }: AboutScreenProps) => {
   return (
-    <div className={cn(theme.gradient.page, 'min-h-screen relative overflow-hidden')}>
-      <ParallaxBackground />
-      
-      <div className="container mx-auto px-4 py-8 relative z-10">
-        <div className="max-w-4xl mx-auto">
+    <div style={{background: '#1a1a1a', minHeight: '100vh', paddingTop: '100px'}}>
+      <div className="container mx-auto px-6 py-12">
+        <div className="max-w-6xl mx-auto">
           <Button 
             variant="ghost" 
             onClick={() => setCurrentStep('welcome')} 
-            className={cn('mb-6', theme.button.ghost, theme.transition.default)}
+            style={{marginBottom: '24px', color: '#ffffff'}}
           >
             <Home className="w-4 h-4 mr-2" /> Back to Home
           </Button>
           
-          <div className="text-center mb-10">
-            <h1 className={cn('text-5xl font-bold mb-3', theme.gradient.header, 'bg-clip-text text-transparent')}>
+          <div className="text-center mb-16">
+            <h1 style={{fontSize: '64px', fontWeight: '800', color: '#ffffff', marginBottom: '24px'}}>
               About AfterLife
             </h1>
-            <p className={cn('text-xl', theme.text.muted)}>Compassionate support through bereavement</p>
+            <p style={{fontSize: '24px', color: 'rgba(255, 255, 255, 0.9)', maxWidth: '800px', margin: '0 auto'}}>
+              Transforming bereavement support through technology and compassion
+            </p>
           </div>
-          
-          <FloatingCard delay={0}>
-            <Card className={cn(theme.card.default, 'border-2 mb-6')}>
-              <CardHeader>
-                <CardTitle className="text-2xl">Our Mission</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className={cn('mb-4', theme.text.secondary)}>
-                  AfterLife transforms the overwhelming journey through bereavement into a clear, supported path forward. 
-                  We combine AI-powered guidance, verified professionals, and human compassion to help you navigate 
-                  every aspect of loss.
-                </p>
-                <p className={cn(theme.text.secondary)}>
-                  From the first hours after a death through probate and beyond, we're here to support you with 
-                  intelligent tools, trusted partners, and compassionate care.
-                </p>
-              </CardContent>
-            </Card>
-          </FloatingCard>
 
-          <FloatingCard delay={100}>
-            <Card className={cn(theme.card.default, 'border-2')}>
-              <CardHeader>
-                <CardTitle className="text-2xl">What We Offer</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <ul className="space-y-3">
-                  <li className={cn('flex items-start', theme.text.secondary)}>
-                    <span className={cn('mr-2', theme.accent.primary)}>✓</span>
-                    <span><strong>24/7 AI Guidance:</strong> Instant answers to your questions, personalized to your situation</span>
-                  </li>
-                  <li className={cn('flex items-start', theme.text.secondary)}>
-                    <span className={cn('mr-2', theme.accent.primary)}>✓</span>
-                    <span><strong>Verified Marketplace:</strong> Trusted funeral directors, solicitors, and professionals across the UK</span>
-                  </li>
-                  <li className={cn('flex items-start', theme.text.secondary)}>
-                    <span className={cn('mr-2', theme.accent.primary)}>✓</span>
-                    <span><strong>Memorial Pages:</strong> Free, permanent tribute spaces to celebrate their life</span>
-                  </li>
-                  <li className={cn('flex items-start', theme.text.secondary)}>
-                    <span className={cn('mr-2', theme.accent.primary)}>✓</span>
-                    <span><strong>Concierge Service:</strong> Full-service support when you need someone to take the lead</span>
-                  </li>
-                </ul>
-              </CardContent>
-            </Card>
-          </FloatingCard>
+          {/* AI-Powered Guidance & Concierge Sections */}
+          <div className="grid md:grid-cols-2 gap-8 mb-16">
+            <FloatingCard delay={0}>
+              <Card className="premium-card">
+                <CardHeader>
+                  <CardTitle className="text-2xl">AI-Powered Guidance</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p className="card-description mb-4">Our intelligent guide is available 24/7 to answer your questions, walk you through procedures, and provide step-by-step support through every stage of your journey.</p>
+                  <p className="card-description font-semibold mb-4">Completely free. Always available.</p>
+                  <Button 
+                    onClick={() => setCurrentStep('chat')}
+                    style={{
+                      background: 'linear-gradient(135deg, #87CEEB, #4682B4)',
+                      color: '#ffffff',
+                      padding: '12px 32px',
+                      fontSize: '14px',
+                      fontWeight: '700',
+                      letterSpacing: '1px',
+                      textTransform: 'uppercase'
+                    }}
+                  >
+                    Talk to AI Guide
+                  </Button>
+                </CardContent>
+              </Card>
+            </FloatingCard>
+
+            <FloatingCard delay={100}>
+              <Card className="premium-card">
+                <CardHeader>
+                  <CardTitle className="text-2xl">Concierge Service</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p className="card-description mb-4">When grief makes even simple decisions feel impossible, our compassionate team handles everything. Phone calls, paperwork, coordination—we take care of it all.</p>
+                  <p className="card-description font-bold text-2xl mb-2" style={{color: '#87CEEB'}}>£1,000</p>
+                  <p className="card-description mb-4">Fixed fee. Often repaid through our savings. Complete peace of mind.</p>
+                  <Button 
+                    onClick={() => setCurrentStep('concierge')}
+                    style={{
+                      background: 'transparent',
+                      color: '#4682B4',
+                      border: '2px solid #4682B4',
+                      padding: '12px 32px',
+                      fontSize: '14px',
+                      fontWeight: '700',
+                      letterSpacing: '1px',
+                      textTransform: 'uppercase'
+                    }}
+                  >
+                    Learn More
+                  </Button>
+                </CardContent>
+              </Card>
+            </FloatingCard>
+          </div>
+
+          {/* What We Offer Section */}
+          <div className="mb-16">
+            <div className="text-center mb-12">
+              <h2 style={{fontSize: '48px', fontWeight: '800', color: '#ffffff', marginBottom: '16px'}}>What We Offer</h2>
+              <p style={{fontSize: '18px', color: 'rgba(255, 255, 255, 0.9)', maxWidth: '800px', margin: '0 auto'}}>
+                A complete platform designed to support you through every aspect of bereavement—from the first hours after death through estate administration and beyond.
+              </p>
+            </div>
+
+            <div className="grid md:grid-cols-3 gap-6">
+              <FloatingCard delay={0}>
+                <Card className="premium-card">
+                  <CardHeader>
+                    <div style={{fontSize: '48px', marginBottom: '16px'}}>🤖</div>
+                    <CardTitle className="text-xl">Intelligent AI</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <p className="card-description">Personalized guidance that adapts to your specific situation, culture, and needs</p>
+                  </CardContent>
+                </Card>
+              </FloatingCard>
+
+              <FloatingCard delay={100}>
+                <Card className="premium-card">
+                  <CardHeader>
+                    <div style={{fontSize: '48px', marginBottom: '16px'}}>🏪</div>
+                    <CardTitle className="text-xl">Verified Marketplace</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <p className="card-description">Trusted funeral directors, solicitors, and professionals across 570 UK areas</p>
+                  </CardContent>
+                </Card>
+              </FloatingCard>
+
+              <FloatingCard delay={200}>
+                <Card className="premium-card">
+                  <CardHeader>
+                    <div style={{fontSize: '48px', marginBottom: '16px'}}>💐</div>
+                    <CardTitle className="text-xl">Memorial Pages</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <p className="card-description">Beautiful, free tribute spaces with photos, stories, and charity donations</p>
+                  </CardContent>
+                </Card>
+              </FloatingCard>
+
+              <FloatingCard delay={300}>
+                <Card className="premium-card">
+                  <CardHeader>
+                    <div style={{fontSize: '48px', marginBottom: '16px'}}>🤝</div>
+                    <CardTitle className="text-xl">Concierge Support</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <p className="card-description">Full-service funeral administration when you need someone to take the lead</p>
+                  </CardContent>
+                </Card>
+              </FloatingCard>
+
+              <FloatingCard delay={400}>
+                <Card className="premium-card">
+                  <CardHeader>
+                    <div style={{fontSize: '48px', marginBottom: '16px'}}>⚖️</div>
+                    <CardTitle className="text-xl">Probate Guidance</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <p className="card-description">Clear direction through estate administration and inheritance procedures</p>
+                  </CardContent>
+                </Card>
+              </FloatingCard>
+
+              <FloatingCard delay={500}>
+                <Card className="premium-card">
+                  <CardHeader>
+                    <div style={{fontSize: '48px', marginBottom: '16px'}}>🔒</div>
+                    <CardTitle className="text-xl">Secure & Private</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <p className="card-description">Your data is encrypted and never shared without your explicit permission</p>
+                  </CardContent>
+                </Card>
+              </FloatingCard>
+            </div>
+          </div>
         </div>
       </div>
     </div>
