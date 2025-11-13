@@ -1180,9 +1180,9 @@ function App() {
           <button
             onClick={() => setCurrentStep('documents')}
             style={{
-              background: 'rgba(255, 255, 255, 0.95)',
+              background: 'rgba(135, 206, 235, 0.9)',
               color: '#1a1a1a',
-              border: '2px solid #87CEEB',
+              border: 'none',
               padding: '12px 24px',
               borderRadius: '9999px',
               fontSize: '14px',
@@ -1190,10 +1190,7 @@ function App() {
               cursor: 'pointer',
               boxShadow: '0 4px 12px rgba(0, 0, 0, 0.3)',
               textTransform: 'uppercase',
-              letterSpacing: '1px',
-              display: 'flex',
-              alignItems: 'center',
-              gap: '8px'
+              letterSpacing: '1px'
             }}
           >
             📄 Documents
