@@ -174,3 +174,87 @@ h1, h2, h3, h4, h5, h6, p, span, div, label, a, li, button {
 button {
   color: #ffffff !important;
 }
+
+/* Premium Tribute - Exact Video Background Structure */
+.app-container {
+  min-height: 100vh;
+  position: relative;
+  z-index: 1;
+}
+
+.animated-bg {
+  height: 100%;
+  left: 0;
+  overflow: hidden;
+  pointer-events: none;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 0;
+}
+
+.bg-video {
+  height: auto;
+  left: 50%;
+  min-height: 100%;
+  min-width: 100%;
+  object-fit: cover;
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  transition: opacity 0.8s ease;
+  width: auto;
+}
+
+.bg-video-home {
+  filter: blur(10px);
+  opacity: 1;
+}
+
+.main-content {
+  margin: 0 auto;
+  max-width: 1600px;
+  padding: 0;
+  position: relative;
+  z-index: 1;
+}
+
+/* Hero Section - Premium Style */
+.hero-premium {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 100px 60px 40px;
+  position: relative;
+  text-align: center;
+}
+
+.hero-title-premium {
+  animation: fadeInUp 1.2s ease;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  background: linear-gradient(135deg, rgba(135, 206, 235, 0.12), rgba(70, 130, 180, 0.12));
+  border: 1px solid rgba(135, 206, 235, 0.25);
+  border-radius: 16px;
+  display: inline-block;
+  font-size: clamp(48px, 8vw, 120px);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  margin-bottom: 20px;
+  padding: 32px 40px;
+  text-transform: uppercase;
+}
+
+.accent {
+  color: #87CEEB !important;
+  display: block;
+}
+
+/* Remove the old gradient backgrounds */
+.bg-gradient-to-br.from-slate-50,
+.bg-gradient-to-br {
+  background: transparent !important;
+}
