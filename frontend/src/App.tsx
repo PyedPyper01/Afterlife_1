@@ -251,7 +251,7 @@ const WelcomeScreen = ({ voiceEnabled, isListening, setIsListening, setCurrentSt
             <CardTitle className="text-xl">AI Guidance</CardTitle>
           </CardHeader>
           <CardContent>
-            <p style={{color: 'rgba(255, 255, 255, 0.7)'}}>24/7 intelligent assistant with voice control</p>
+            <p className="card-description">24/7 intelligent assistant with voice control</p>
           </CardContent>
         </Card>
       </FloatingCard>
@@ -265,7 +265,7 @@ const WelcomeScreen = ({ voiceEnabled, isListening, setIsListening, setCurrentSt
             <CardTitle className="text-xl">Marketplace</CardTitle>
           </CardHeader>
           <CardContent>
-            <p style={{color: 'rgba(255, 255, 255, 0.7)'}}>Find verified funeral directors, florists, and more</p>
+            <p className="card-description">Find verified funeral directors, florists, and more</p>
           </CardContent>
         </Card>
       </FloatingCard>
@@ -279,7 +279,7 @@ const WelcomeScreen = ({ voiceEnabled, isListening, setIsListening, setCurrentSt
             <CardTitle className="text-xl">Memorial Pages</CardTitle>
           </CardHeader>
           <CardContent>
-            <p style={{color: 'rgba(255, 255, 255, 0.7)'}}>Create free, permanent tribute pages</p>
+            <p className="card-description">Create free, permanent tribute pages</p>
           </CardContent>
         </Card>
       </FloatingCard>
