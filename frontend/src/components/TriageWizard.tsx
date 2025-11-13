@@ -4,7 +4,7 @@ import { Input } from '@/components/ui/input'
 import { Alert, AlertDescription } from '@/components/ui/alert'
 import { Home, ChevronLeft, Clock, HelpCircle } from 'lucide-react'
 import { QUESTIONS, getFirstQuestion, getNextQuestion, type QuestionId } from '../questionConfig'
-import { theme, cn } from '../theme'
+import { theme, cn } from '../theme.ts'
 
 interface TriageWizardProps {
   onComplete: (answers: Record<string, any>) => void

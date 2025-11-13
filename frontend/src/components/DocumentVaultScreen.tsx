@@ -2,8 +2,8 @@ import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Alert, AlertDescription } from '@/components/ui/alert'
 import { Home, Upload, FileText, Download, Trash2, Lock, File } from 'lucide-react'
-import { FloatingCard, ParallaxBackground } from './FloatingCard'
-import { theme, cn } from '../theme'
+import { FloatingCard, ParallaxBackground } from './FloatingCard.tsx'
+import { theme, cn } from '../theme.ts'
 
 interface DocumentVaultScreenProps {
   setCurrentStep: (step: 'welcome' | 'triage' | 'guidance' | 'marketplace' | 'memorial' | 'documents' | 'chat' | 'concierge' | 'checklist') => void

@@ -3,8 +3,8 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Input } from '@/components/ui/input'
 import { Alert, AlertDescription } from '@/components/ui/alert'
 import { Home, Phone, Mail, FileText, Download, CheckCircle2 } from 'lucide-react'
-import { FloatingCard, ParallaxBackground } from './FloatingCard'
-import { theme, cn } from '../theme'
+import { FloatingCard, ParallaxBackground } from './FloatingCard.tsx'
+import { theme, cn } from '../theme.ts'
 import jsPDF from 'jspdf'
 
 interface ConciergeScreenProps {

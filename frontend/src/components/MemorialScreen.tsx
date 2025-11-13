@@ -3,8 +3,8 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Input } from '@/components/ui/input'
 import { Alert, AlertDescription } from '@/components/ui/alert'
 import { Home, Heart, Upload, Share2, MessageCircle, Calendar } from 'lucide-react'
-import { FloatingCard, ParallaxBackground } from './FloatingCard'
-import { theme, cn } from '../theme'
+import { FloatingCard, ParallaxBackground } from './FloatingCard.tsx'
+import { theme, cn } from '../theme.ts'
 
 interface MemorialScreenProps {
   setCurrentStep: (step: 'welcome' | 'triage' | 'guidance' | 'marketplace' | 'memorial' | 'documents' | 'chat' | 'concierge' | 'checklist') => void

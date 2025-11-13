@@ -2,7 +2,7 @@ import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { MessageCircle, X, Send, Minimize2, Maximize2 } from 'lucide-react'
-import { theme, cn } from '../theme'
+import { theme, cn } from '../theme.ts'
 
 interface Message {
   role: 'user' | 'assistant'

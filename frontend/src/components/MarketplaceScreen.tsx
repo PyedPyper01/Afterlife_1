@@ -3,8 +3,8 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Input } from '@/components/ui/input'
 import { Alert, AlertDescription } from '@/components/ui/alert'
 import { Home, Search, MapPin, Star, Phone, Mail, Globe, Filter, MessageCircle } from 'lucide-react'
-import { FloatingCard, ParallaxBackground } from './FloatingCard'
-import { theme, cn } from '../theme'
+import { FloatingCard, ParallaxBackground } from './FloatingCard.tsx'
+import { theme, cn } from '../theme.ts'
 
 interface MarketplaceScreenProps {
   setCurrentStep: (step: 'welcome' | 'triage' | 'guidance' | 'marketplace' | 'memorial' | 'documents' | 'chat' | 'concierge' | 'checklist') => void
