@@ -1178,19 +1178,25 @@ function App() {
             Crisis Support
           </Button>
           <button
-            className="rounded-full shadow-lg px-6 py-3 flex items-center gap-2"
+            onClick={() => setCurrentStep('documents')}
             style={{
               background: 'rgba(255, 255, 255, 0.95)',
               color: '#1a1a1a',
               border: '2px solid #87CEEB',
+              padding: '12px 24px',
+              borderRadius: '9999px',
+              fontSize: '14px',
               fontWeight: '600',
-              fontSize: '16px',
-              cursor: 'pointer'
+              cursor: 'pointer',
+              boxShadow: '0 4px 12px rgba(0, 0, 0, 0.3)',
+              textTransform: 'uppercase',
+              letterSpacing: '1px',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '8px'
             }}
-            onClick={() => setCurrentStep('documents')}
           >
-            <FileText className="w-5 h-5" style={{color: '#1a1a1a', stroke: '#1a1a1a'}} />
-            <span style={{color: '#1a1a1a'}}>Documents</span>
+            📄 Documents
           </button>
         </div>
       </main>
