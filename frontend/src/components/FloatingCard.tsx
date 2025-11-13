@@ -116,9 +116,3 @@ export const ParallaxBackground = ({ className }: ParallaxBackgroundProps) => {
     </div>
   )
 }
-
-
-================================================================================
-SECTION 4: FRONTEND UTILITIES & STYLES
-================================================================================
-
