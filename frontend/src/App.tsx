@@ -75,59 +75,6 @@ const WelcomeScreen = ({ voiceEnabled, isListening, setIsListening, setCurrentSt
           AfterLife transforms the overwhelming journey through bereavement into a clear, supported path forward. AI-powered guidance, verified professionals, and human compassion—all in one place.
         </p>
 
-        <div className="grid md:grid-cols-3 gap-6 mb-12">
-          <FloatingCard delay={0}>
-            <Card className={cn(theme.card.default, 'cursor-pointer', theme.card.hover, theme.transition.default, 'border-2')} onClick={() => setCurrentStep('triage')}>
-              <CardHeader className="pb-4">
-                <div className={cn('w-14 h-14 rounded-full flex items-center justify-center mb-4', theme.icon.primary)}>
-                  <MessageCircle className="w-7 h-7 text-white" />
-                </div>
-                <CardTitle className="text-xl">AI Guidance</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className={theme.text.muted}>24/7 intelligent assistant with voice control</p>
-              </CardContent>
-            </Card>
-          </FloatingCard>
-
-          <FloatingCard delay={100}>
-            <Card className={cn(theme.card.default, 'cursor-pointer', theme.card.hover, theme.transition.default, 'border-2')} onClick={() => setCurrentStep('marketplace')}>
-              <CardHeader className="pb-4">
-                <div className={cn('w-14 h-14 rounded-full flex items-center justify-center mb-4', theme.icon.secondary)}>
-                  <ShoppingCart className="w-7 h-7 text-white" />
-                </div>
-                <CardTitle className="text-xl">Marketplace</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className={theme.text.muted}>Find verified funeral directors, florists, and more</p>
-              </CardContent>
-            </Card>
-          </FloatingCard>
-
-          <FloatingCard delay={200}>
-            <Card className={cn(theme.card.default, 'cursor-pointer', theme.card.hover, theme.transition.default, 'border-2')} onClick={() => setCurrentStep('memorial')}>
-              <CardHeader className="pb-4">
-                <div className={cn('w-14 h-14 rounded-full flex items-center justify-center mb-4', theme.icon.tertiary)}>
-                  <Heart className="w-7 h-7 text-white" />
-                </div>
-                <CardTitle className="text-xl">Memorial Pages</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className={theme.text.muted}>Create free, permanent tribute pages</p>
-              </CardContent>
-            </Card>
-          </FloatingCard>
-        </div>
-
-        <FloatingCard delay={300}>
-          <Alert className={cn(theme.card.urgent, 'mb-10 border-2 shadow-md')}>
-            <AlertTriangle className="h-5 w-5 text-amber-600" />
-            <AlertDescription className={theme.text.secondary}>
-              <strong>In Crisis?</strong> Contact Samaritans at <strong>116 123</strong> (24/7) or <a href="https://www.cruse.org.uk" className={cn(theme.accent.primary, 'underline hover:opacity-80')}>Cruse Bereavement Care</a>
-            </AlertDescription>
-          </Alert>
-        </FloatingCard>
-
         <div className="flex flex-col sm:flex-row gap-5 justify-center mb-8">
           <button 
             className="premium-button"
