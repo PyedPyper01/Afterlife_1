@@ -772,6 +772,7 @@ function App() {
             setVoiceEnabled={setVoiceEnabled}
           />
         )}
+        {currentStep === 'about' && <AboutScreen setCurrentStep={setCurrentStep} />}
         {currentStep === 'triage' && (
           <TriageWizard
             onComplete={handleTriageComplete}
