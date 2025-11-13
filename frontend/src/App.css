@@ -119,33 +119,35 @@ h1, h2, h3, h4, h5, h6, p, span, div, label, a, li, button {
   display: block;
 }
 
-/* WHITE CARDS WITH BLUE TEXT - Your Request */
+/* GLASSMORPHISM CARDS - Semi-translucent grey boxes from original Premium Tribute */
 .premium-card {
-  background: #ffffff !important;
-  border: 2px solid #87CEEB !important;
+  background: rgba(128, 128, 128, 0.15) !important;
+  backdrop-filter: blur(20px) !important;
+  -webkit-backdrop-filter: blur(20px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.18) !important;
   border-radius: 16px;
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
   transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
   padding: 24px;
 }
 
 .premium-card:hover {
-  background: #ffffff !important;
-  border-color: #4682B4 !important;
+  background: rgba(128, 128, 128, 0.25) !important;
+  border: 1px solid rgba(135, 206, 235, 0.4) !important;
   box-shadow: 0 12px 40px rgba(135, 206, 235, 0.3);
   transform: translateY(-8px);
 }
 
-/* Card text must be dark/blue */
+/* Card text must be WHITE */
 .premium-card h3, 
 .premium-card p, 
 .premium-card span,
 .premium-card div {
-  color: #1a1a1a !important;
+  color: #ffffff !important;
 }
 
 .premium-card .text-xl {
-  color: #4682B4 !important;
+  color: #87CEEB !important;
   font-weight: 700;
 }
 
