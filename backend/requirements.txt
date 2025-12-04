@@ -1,0 +1,9 @@
+fastapi[standard]==0.120.1
+openai==1.99.9
+python-dotenv==1.2.1
+httpx==0.28.1
+pydantic==2.10.6
+motor==3.3.2
+pymongo==4.6.1
+emergentintegrations
+python-multipart==0.0.9

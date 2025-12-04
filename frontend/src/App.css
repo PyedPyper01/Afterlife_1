@@ -1,0 +1,301 @@
+/* AfterLife Premium Theme - Clean CSS */
+
+/* ============================================
+   Base Styles
+   ============================================ */
+
+:root {
+  --color-primary: #87CEEB;
+  --color-primary-dark: #4682B4;
+  --color-background: #1a1a1a;
+  --color-surface: rgba(255, 255, 255, 0.1);
+  --color-text: #ffffff;
+  --color-text-muted: rgba(255, 255, 255, 0.7);
+  --color-border: rgba(135, 206, 235, 0.2);
+}
+
+html, body, #root {
+  margin: 0;
+  padding: 0;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  line-height: 1.6;
+  min-height: 100vh;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+/* ============================================
+   App Container & Backgrounds
+   ============================================ */
+
+.app-container {
+  min-height: 100vh;
+  position: relative;
+  z-index: 1;
+}
+
+.animated-bg {
+  height: 100%;
+  left: 0;
+  overflow: hidden;
+  pointer-events: none;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 0;
+}
+
+.bg-video {
+  height: auto;
+  left: 50%;
+  min-height: 100%;
+  min-width: 100%;
+  object-fit: cover;
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  transition: opacity 0.8s ease;
+  width: auto;
+}
+
+.bg-video-home {
+  filter: blur(10px);
+  opacity: 1;
+}
+
+.main-content {
+  margin: 0 auto;
+  max-width: 1600px;
+  padding: 0;
+  position: relative;
+  z-index: 1;
+}
+
+/* ============================================
+   Home/Welcome Page - Dark Theme
+   ============================================ */
+
+.home-premium {
+  background: var(--color-background);
+  color: var(--color-text);
+  min-height: 100vh;
+}
+
+.home-premium h1,
+.home-premium h2,
+.home-premium h3,
+.home-premium h4,
+.home-premium p,
+.home-premium span,
+.home-premium label,
+.home-premium a {
+  color: var(--color-text);
+}
+
+/* Hero Section */
+.hero-premium {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 120px 60px 40px;
+  position: relative;
+  text-align: center;
+}
+
+.hero-title-premium {
+  animation: fadeInUp 1.2s ease;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  background: linear-gradient(135deg, rgba(135, 206, 235, 0.12), rgba(70, 130, 180, 0.12));
+  border: 1px solid var(--color-border);
+  border-radius: 16px;
+  display: inline-block;
+  font-size: clamp(48px, 8vw, 120px);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  margin-bottom: 20px;
+  padding: 32px 40px;
+  text-transform: uppercase;
+  color: var(--color-text);
+}
+
+.accent {
+  color: var(--color-primary);
+  display: block;
+}
+
+/* ============================================
+   Premium Card Styles - Glassmorphism
+   ============================================ */
+
+.premium-card {
+  background: var(--color-surface);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 16px;
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  padding: 24px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.premium-card:hover {
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(135, 206, 235, 0.4);
+  box-shadow: 0 12px 40px rgba(135, 206, 235, 0.3);
+  transform: translateY(-4px);
+}
+
+/* Card text colors for dark backgrounds */
+.premium-card h3, 
+.premium-card p, 
+.premium-card span {
+  color: var(--color-text);
+}
+
+.premium-card .text-xl,
+.premium-card h2,
+.premium-card h3 {
+  color: var(--color-primary);
+  font-weight: 700;
+}
+
+/* Icon styling inside cards */
+.premium-card .w-14 {
+  background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark));
+}
+
+/* Card description text */
+.card-description {
+  color: var(--color-text-muted);
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.6;
+}
+
+/* ============================================
+   Inner Page Styles - Light Theme for Cards
+   ============================================ */
+
+/* Pages like marketplace, chat, memorial use white cards */
+/* Don't override the component library's card styles on these pages */
+
+/* ============================================
+   Animations
+   ============================================ */
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-10px);
+  }
+  60% {
+    transform: translateY(-5px);
+  }
+}
+
+/* ============================================
+   Mobile Responsive Styles
+   ============================================ */
+
+@media (max-width: 768px) {
+  .hero-premium {
+    padding: 100px 20px 40px;
+    min-height: auto;
+  }
+
+  .hero-title-premium {
+    font-size: clamp(28px, 8vw, 48px);
+    padding: 20px 24px;
+  }
+
+  nav button {
+    font-size: 12px;
+    padding: 8px 12px;
+  }
+
+  .home-premium nav {
+    padding: 15px 20px;
+  }
+
+  .home-premium nav > div {
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  /* Fix cards on mobile */
+  .premium-card {
+    margin: 10px 0;
+  }
+
+  /* Hero section adjustments */
+  section {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  /* Grid adjustments for mobile */
+  .grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* Fixed buttons on mobile */
+  .fixed.bottom-4.left-4 {
+    bottom: 10px;
+    left: 10px;
+  }
+
+  .fixed.bottom-4.left-4 button {
+    font-size: 12px;
+    padding: 10px 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-title-premium {
+    font-size: clamp(24px, 8vw, 36px);
+    padding: 16px 20px;
+  }
+
+  nav button {
+    font-size: 11px;
+    padding: 6px 10px;
+  }
+}
+
+/* ============================================
+   Utility Classes
+   ============================================ */
+
+/* Preserve the gradient background utility when explicitly used */
+.bg-gradient-page {
+  background: linear-gradient(to bottom right, #f8fafc, #fafaf9, #f1f5f9);
+}
+
+/* Dark gradient for certain sections */
+.bg-dark-gradient {
+  background: linear-gradient(135deg, rgba(26, 26, 26, 0.95) 0%, rgba(70, 130, 180, 0.2) 50%, rgba(26, 26, 26, 0.95) 100%);
+}
