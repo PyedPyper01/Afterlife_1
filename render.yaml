@@ -19,7 +19,3 @@ services:
     rootDir: frontend
     buildCommand: npm install --legacy-peer-deps && npm run build
     staticPublishPath: build
-    headers:
-      - path: /*
-        name: Cache-Control
-        value: no-cache
